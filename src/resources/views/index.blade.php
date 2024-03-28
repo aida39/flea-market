@@ -11,12 +11,11 @@
     </ul>
     <div class="tab-content">
         <div class="tab-content__item show">
-            <img src="{{asset('images/item_01.jpg')}}" alt="">
-            <img src="{{asset('images/item_01.jpg')}}" alt="">
-            <img src="{{asset('images/item_01.jpg')}}" alt="">
-            <img src="{{asset('images/item_01.jpg')}}" alt="">
-            <img src="{{asset('images/item_01.jpg')}}" alt="">
-            <img src="{{asset('images/item_01.jpg')}}" alt="">
+            @foreach($items as $item)
+            <a href="/item/{{$item['id']}}">
+                <img src="{{asset('images/item_01.jpg')}}" alt="item_image">
+            </a>
+            @endforeach
         </div>
         <div class="tab-content__item">
             マイリストはありません

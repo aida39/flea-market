@@ -15,7 +15,11 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', [ItemController::class, 'index']);
+
+Route::controller(ItemController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/item/{id}', 'showDetail');
+});
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('/register', 'getRegister');
