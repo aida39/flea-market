@@ -14,24 +14,45 @@
 <body>
     <header class="header">
         <div>
-            <img class="header__logo" src="{{asset('images/logo.svg')}}" alt="logo">
+            <a href="/">
+                <img class="header__logo" src="{{asset('images/logo.svg')}}" alt="logo">
+            </a>
         </div>
+        @if(request()->is('login') || request()->is('register'))
+        @else
         <div>
             <input class="header__search" type="text" placeholder="なにをお探しですか？">
         </div>
+        @if (Auth::check())
         <ul class="header__link">
             <li class="header__link-item">
-                <a href="/">ログイン</a>
+                <a href="/logout">ログアウト</a>
             </li>
             <li class="header__link-item">
-                <a href="/logout">会員登録</a>
+                <a href="/mypage">マイページ</a>
             </li>
             <li class="header__link-item">
                 <button class="header__link-button">
-                    <a href="/mypage">出品</a>
+                    <a href="/sell">出品</a>
                 </button>
             </li>
         </ul>
+        @else
+        <ul class="header__link">
+            <li class="header__link-item">
+                <a href="/login">ログイン</a>
+            </li>
+            <li class="header__link-item">
+                <a href="/register">会員登録</a>
+            </li>
+            <li class="header__link-item">
+                <button class="header__link-button">
+                    <a href="/sell">出品</a>
+                </button>
+            </li>
+        </ul>
+        @endif
+        @endif
     </header>
 
     <main>

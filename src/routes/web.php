@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +16,13 @@ use App\Http\Controllers\ItemController;
 */
 
 Route::get('/', [ItemController::class, 'index']);
+
+Route::controller(AuthController::class)->group(function () {
+    Route::get('/register', 'getRegister');
+    Route::post('/register', 'postRegister');
+
+    Route::get('/login', 'getLogin');
+    Route::post('/login', 'postLogin');
+    Route::get('/logout', 'getLogout');
+
+});

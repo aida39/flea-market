@@ -92,3 +92,7 @@ hr {
 input, select {
     vertical-align: middle;
 }
+
+input {
+    box-sizing: border-box;
+}
