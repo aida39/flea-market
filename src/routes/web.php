@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +29,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'getLogin');
     Route::post('/login', 'postLogin');
     Route::get('/logout', 'getLogout');
+});
 
+Route::controller(UserController::class)->group(function () {
+    Route::get('/mypage', 'mypage');
 });
