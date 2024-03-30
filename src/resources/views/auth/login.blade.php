@@ -9,8 +9,8 @@
     {{ session('result') }}
 </div>
 @endif
-<div class="container">
-    <h1 class="title">ログイン</h1>
+<div class="form-container">
+    <h1 class="page-title">ログイン</h1>
     <form action="/login" method="post">
         @csrf
         <label class="form__label">メールアドレス</label>
