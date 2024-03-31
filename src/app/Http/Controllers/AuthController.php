@@ -24,7 +24,7 @@ class AuthController extends Controller
             ]);
             return redirect('/login')->with('result', '会員登録が完了しました');
         } catch (\Throwable $exception) {
-            return redirect('/register')->with('result', '登録中にエラーが発生しました');
+            return redirect('/register')->with('result', 'エラーが発生しました');
         }
     }
 

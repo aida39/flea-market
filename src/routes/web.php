@@ -18,7 +18,7 @@ use App\Http\Controllers\UserController;
 
 
 Route::controller(ItemController::class)->group(function () {
-    Route::get('/', 'index');
+    Route::get('/', 'index')->name('index');
     Route::get('/item/{id}', 'showDetail');
 });
 
@@ -28,9 +28,11 @@ Route::controller(AuthController::class)->group(function () {
 
     Route::get('/login', 'getLogin');
     Route::post('/login', 'postLogin');
-    Route::get('/logout', 'getLogout');
+    Route::get('/logout', 'getLogout')->middleware('auth');
 });
 
-Route::controller(UserController::class)->group(function () {
+Route::controller(UserController::class)->middleware('auth')->group(function () {
     Route::get('/mypage', 'mypage');
+    Route::get('/mypage/profile', 'editProfile');
+    Route::post('/mypage/profile', 'updateOrCreateProfile');
 });

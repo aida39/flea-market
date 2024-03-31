@@ -6,10 +6,11 @@
 @section('content')
 <div class="user-area">
     <div class="user-unit">
-        <img src="{{asset('images/user.jpg')}}" alt="user-image" class="user-image">
-        <h1 class="section-heading">ユーザー名</h1>
+        <img src="{{ asset($profile['image_path'] ?? asset('images/user.jpg')) }}" class="user-image">
+
+        <h1 class="section-heading">{{$profile['name'] ?? '新規ユーザー'}}</h1>
     </div>
-    <a href="" class="profile-link">プロフィールを編集</a>
+    <a href="/mypage/profile" class="profile-link">プロフィールを編集</a>
 </div>
 <div class="tab">
     <ul class="tab-menu">
