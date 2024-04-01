@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('condition_id')->constrained()->cascadeOnDelete();
             $table->string('name', 255);
+            $table->string('brand', 255);
             $table->text('description');
-            $table->string('image_path');
-            $table->string('status', 255);
+            $table->string('image_path', 255);
             $table->unsignedInteger('price');
+            $table->boolean('recommend_flag')->default(true);
             $table->timestamps();
         });
     }
@@ -32,6 +34,7 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('item_category_mappings');
         Schema::dropIfExists('items');
     }
 };

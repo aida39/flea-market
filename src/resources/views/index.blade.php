@@ -13,7 +13,7 @@
         <div class="tab-content__item show">
             @foreach($items as $item)
             <a href="/item/{{$item['id']}}">
-                <img src="{{asset('images/item_01.jpg')}}" alt="item_image">
+                <img src="{{asset($item['image_path'])}}" alt="item_image">
             </a>
             @endforeach
         </div>

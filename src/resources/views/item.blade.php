@@ -9,7 +9,7 @@
 
 <div class="container">
     <div class="left-container">
-        <img src="{{asset('images/item_01.jpg')}}" alt="item-image" class="item-image">
+        <img src="{{asset($item['image_path'])}}" alt="item-image" class="item-image">
     </div>
     <div class="right-container">
         <div class="right-container-inner">

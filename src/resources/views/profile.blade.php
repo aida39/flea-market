@@ -23,7 +23,7 @@
         <input type="text" class="form__input" name="name" value="{{ old('name', $profile ? $profile['name'] : '') }}">
 
         <label class="form__label">郵便番号</label>
-        <input type="number" class="form__input" name="postal_code" value="{{old('postal_code', $profile ? $profile['postal_code'] : '') }}">
+        <input type="text" class="form__input" name="postal_code" value="{{old('postal_code', $profile ? $profile['postal_code'] : '') }}">
 
         <label class="form__label">住所</label>
         <input type="text" class="form__input" name="address" value="{{old('address', $profile ? $profile['address'] : '') }}">

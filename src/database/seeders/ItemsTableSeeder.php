@@ -17,74 +17,98 @@ class ItemsTableSeeder extends Seeder
     {
         $param = [
             'user_id' => '1',
+            'condition_id' => '1',
             'name' => '商品01',
-            'description' => '商品の状態は良好です。傷もありません。購入後、即発送します',
-            'image_path' => 'dummy_path',
-            'status' => '良好',
+            'brand' => 'グローバルクロージング',
+            'description' => '購入後、即発送します',
+            'image_path' => '/images/item_01.jpg',
             'price' => '3000',
+            'recommend_flag' => '1',
+            'created_at' => '2024-04-01 11:00:00',
         ];
         DB::table('items')->insert($param);
         $param = [
             'user_id' => '2',
+            'condition_id' => '2',
             'name' => '商品02',
-            'description' => '商品の状態は良好です。傷もありません。購入後、即発送します',
-            'image_path' => 'dummy_path',
-            'status' => '新古品',
+            'brand' => 'アーバンスタイル',
+            'description' => '購入後、即発送します',
+            'image_path' => '/images/item_02.jpg',
             'price' => '5000',
+            'recommend_flag' => '1',
+            'created_at' => '2024-04-01 11:00:00',
         ];
         DB::table('items')->insert($param);
         $param = [
             'user_id' => '3',
+            'condition_id' => '3',
             'name' => '商品03',
-            'description' => '商品の状態は良好です。傷もありません。購入後、即発送します',
-            'image_path' => 'dummy_path',
-            'status' => '良好',
+            'brand' => 'モダンウェア',
+            'description' => '購入後、即発送します',
+            'image_path' => '/images/item_03.jpg',
             'price' => '7000',
+            'recommend_flag' => '1',
+            'created_at' => '2024-04-01 11:00:00',
         ];
         DB::table('items')->insert($param);
         $param = [
             'user_id' => '4',
+            'condition_id' => '4',
             'name' => '商品04',
-            'description' => '商品の状態は良好です。傷もありません。購入後、即発送します',
-            'image_path' => 'dummy_path',
-            'status' => '良好',
+            'brand' => 'アーバンスタイル',
+            'description' => '購入後、即発送します',
+            'image_path' => '/images/item_04.jpg',
             'price' => '10000',
+            'recommend_flag' => '1',
+            'created_at' => '2024-04-01 11:00:00',
         ];
         DB::table('items')->insert($param);
         $param = [
             'user_id' => '5',
+            'condition_id' => '1',
             'name' => '商品05',
-            'description' => '商品の状態は良好です。傷もありません。購入後、即発送します',
-            'image_path' => 'dummy_path',
-            'status' => '新品',
+            'brand' => 'アーバンスタイル',
+            'description' => '購入後、即発送します',
+            'image_path' => '/images/item_05.jpg',
             'price' => '20000',
+            'recommend_flag' => '1',
+            'created_at' => '2024-04-01 11:00:00',
         ];
         DB::table('items')->insert($param);
         $param = [
             'user_id' => '1',
+            'condition_id' => '2',
             'name' => '商品06',
-            'description' => '商品の状態は良好です。傷もありません。購入後、即発送します',
-            'image_path' => 'dummy_path',
-            'status' => '新古品',
+            'brand' => 'モダンウェア',
+            'description' => '購入後、即発送します',
+            'image_path' => '/images/item_06.jpg',
             'price' => '15000',
+            'recommend_flag' => '1',
+            'created_at' => '2024-04-01 11:00:00',
         ];
         DB::table('items')->insert($param);
         $param = [
             'user_id' => '2',
+            'condition_id' => '3',
             'name' => '商品07',
-            'description' => '商品の状態は良好です。傷もありません。購入後、即発送します',
-            'image_path' => 'dummy_path',
-            'status' => '新品',
+            'brand' => 'モダンウェア',
+            'description' => '購入後、即発送します',
+            'image_path' => '/images/item_07.jpg',
             'price' => '4000',
+            'recommend_flag' => '1',
+            'created_at' => '2024-04-01 11:00:00',
         ];
         DB::table('items')->insert($param);
         $param = [
             'user_id' => '3',
+            'condition_id' => '3',
             'name' => '商品08',
-            'description' => '商品の状態は良好です。傷もありません。購入後、即発送します',
-            'image_path' => 'dummy_path',
-            'status' => '新品',
+            'brand' => 'グローバルクロージング',
+            'description' => '購入後、即発送します',
+            'image_path' => '/images/item_08.jpg',
             'price' => '6000',
+            'recommend_flag' => '0',
+            'created_at' => '2024-04-01 11:00:00',
         ];
         DB::table('items')->insert($param);
     }
