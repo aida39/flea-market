@@ -164,7 +164,7 @@
 }
 
 .right-container-inner {
-    width: 300px;
+    width: 350px;
 }
 
 .item-image {
@@ -174,8 +174,25 @@
 }
 
 .item-name {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 24px;
+}
+
+.item-category {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 8px;
+    background-color: #d9d9d9;
+    font-size: 14px;
+}
+
+.item-category:first-of-type {
+    margin-left: 40px;
+}
+
+.brand {
+    margin-bottom: 20px;
+    font-size: 14px;
 }
 
 .price {

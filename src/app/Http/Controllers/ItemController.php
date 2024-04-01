@@ -16,8 +16,8 @@ class ItemController extends Controller
 
     public function showDetail($id)
     {
-        $item = Item::findOrFail($id);
-
-        return view('item', compact('item'));
+        $item = Item::with('condition')->findOrFail($id);
+        $categories = $item->categories;
+        return view('item', compact('item','categories'));
     }
 }

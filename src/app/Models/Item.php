@@ -10,10 +10,22 @@ class Item extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
+        'condition_id',
         'name',
         'description',
         'image_path',
-        'stauts',
         'price',
+        'recommend_flag',
     ];
+
+    public function condition()
+    {
+        return $this->belongsTo(Condition::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'item_category_mappings');
+    }
 }

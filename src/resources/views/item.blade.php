@@ -14,7 +14,8 @@
     <div class="right-container">
         <div class="right-container-inner">
             <h1 class="item-name">{{$item['name']}}</h1>
-            <span class="price">¥{{$item['price']}}</span>
+            <div class="brand">{{$item['brand']}}</div>
+            <span class="price">¥{{ number_format($item['price']) }}</span>
             <div class="feedback-area">
                 <div class="favorite-unit">
                     <button>
@@ -35,10 +36,13 @@
             <h2 class="section-heading">商品の情報</h2>
             <div class="subsection-area">
                 <h3 class="subsection-heading">カテゴリー</h3>
+                @foreach($categories as $category)
+                <span class="item-category">{{ $category->name }}</span>
+                @endforeach
             </div>
             <div class="subsection-area">
                 <h3 class="subsection-heading">商品の状態</h3>
-                <span class="subsection-text">{{$item['status']}}</span>
+                <span class="subsection-text">{{$item->condition->name}}</span>
             </div>
         </div>
     </div>
