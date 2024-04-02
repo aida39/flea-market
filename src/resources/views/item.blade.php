@@ -4,9 +4,6 @@
 @endsection
 
 @section('content')
-
-
-
 <div class="container">
     <div class="left-container">
         <img src="{{asset($item['image_path'])}}" alt="item-image" class="item-image">
@@ -30,14 +27,14 @@
                     <span class="count">3</span>
                 </div>
             </div>
-            <a href="" class="button-style">購入する</a>
+            <a href="/purchase/{{$item['id']}}" class="button-style">購入する</a>
             <h2 class="section-heading">商品説明</h2>
             <p class="section-text">{{$item['description']}}</p>
             <h2 class="section-heading">商品の情報</h2>
             <div class="subsection-area">
                 <h3 class="subsection-heading">カテゴリー</h3>
                 @foreach($categories as $category)
-                <span class="item-category">{{ $category->name }}</span>
+                <span class="category">{{ $category->name }}</span>
                 @endforeach
             </div>
             <div class="subsection-area">
@@ -46,7 +43,5 @@
             </div>
         </div>
     </div>
-
 </div>
-
 @endsection

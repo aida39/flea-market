@@ -19,7 +19,9 @@ use App\Http\Controllers\UserController;
 
 Route::controller(ItemController::class)->group(function () {
     Route::get('/', 'index')->name('index');
-    Route::get('/item/{id}', 'showDetail');
+    Route::get('/item/{id}', 'detail');
+    Route::get('/purchase/{id}', 'showPurchasePage');
+    Route::post('/purchase/{id}', 'submitPurchase');
 });
 
 Route::controller(AuthController::class)->group(function () {
