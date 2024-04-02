@@ -21,9 +21,4 @@ class ItemController extends Controller
         return view('item', compact('item', 'categories'));
     }
 
-    public function showPurchasePage($id)
-    {
-        $item = Item::findOrFail($id);
-        return view('purchase', compact('item'));
-    }
 }

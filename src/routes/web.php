@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 
@@ -20,8 +21,13 @@ use App\Http\Controllers\UserController;
 Route::controller(ItemController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/item/{id}', 'detail');
+});
+
+Route::controller(OrderController::class)->group(function () {
     Route::get('/purchase/{id}', 'showPurchasePage');
     Route::post('/purchase/{id}', 'submitPurchase');
+    Route::get('/purchase/address/{id}', 'showAddressForm');
+    Route::post('/purchase/address/{id}', 'storeAddress');
 });
 
 Route::controller(AuthController::class)->group(function () {
