@@ -21,6 +21,8 @@ use App\Http\Controllers\UserController;
 Route::controller(ItemController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/item/{id}', 'detail');
+    Route::get('/comment/{id}', 'showCommentPage');
+    Route::post('/comment/{id}', 'storeComment');
 });
 
 Route::controller(OrderController::class)->group(function () {

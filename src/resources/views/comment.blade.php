@@ -27,20 +27,25 @@
                     <span class="count">{{$comment_count}}</span>
                 </div>
             </div>
-            <a href="/purchase/{{$item['id']}}" class="button-style">購入する</a>
-            <h2 class="section-heading">商品説明</h2>
-            <p class="section-text">{{$item['description']}}</p>
-            <h2 class="section-heading">商品の情報</h2>
-            <div class="subsection-area">
-                <h3 class="subsection-heading">カテゴリー</h3>
-                @foreach($categories as $category)
-                <span class="category">{{ $category->name }}</span>
-                @endforeach
+            @foreach($comments as $comment)
+            <div class="comment-area">
+                <div class="comment-user-info">
+                    <img src="{{ asset($comment->user->profile->image_path ?? asset('images/user.jpg')) }}" alt="user-image" class=" user-image--small">
+                    @if($comment->user->profile)
+                    <span class="comment-author">{{ $comment->user->profile->name }}</span>
+                    @else
+                    <span class="comment-author">新規ユーザー</span>
+                    @endif
+                </div>
+                <p class="comment-text">{{$comment['comment']}}</p>
             </div>
-            <div class="subsection-area">
-                <h3 class="subsection-heading">商品の状態</h3>
-                <span class="subsection-text">{{$item->condition->name}}</span>
-            </div>
+            @endforeach
+            <form action="/comment/{{$item['id']}}" method="post" class="comment-form">
+                @csrf
+                <label class="form__label">商品へのコメント</label>
+                <textarea name="comment" class="form__textarea"></textarea>
+                <button class="form__button" type="submit">コメントを送信する</button>
+            </form>
         </div>
     </div>
 </div>
