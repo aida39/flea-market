@@ -15,10 +15,14 @@
             <span class="price">¥{{ number_format($item['price']) }}</span>
             <div class="icon-area">
                 <div class="favorite-icon">
-                    <button>
-                        <img src="{{asset('images/favorite-icon.jpg')}}" alt="favorite-icon">
-                    </button>
-                    <span class="count">3</span>
+                    <form action="{{ url('/favorite/'.$item['id']) }}" method="post">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit">
+                            <img src="{{ asset($is_favorite ? 'images/favorite-on.jpg' : 'images/favorite-off.jpg') }}" alt="favorite-icon">
+                        </button>
+                    </form>
+                    <span class="count">{{$favorite_count}}</span>
                 </div>
                 <div class="comment-icon">
                     <a href="/comment/{{$item['id']}}">

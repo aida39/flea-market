@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
@@ -24,6 +25,9 @@ Route::controller(ItemController::class)->group(function () {
     Route::get('/comment/{id}', 'showCommentPage');
     Route::post('/comment/{id}', 'storeComment');
 });
+
+Route::patch('/favorite/{id}', [FavoriteController::class, 'switchFavoriteStatus'])
+    ->middleware('auth');
 
 Route::controller(OrderController::class)->group(function () {
     Route::get('/purchase/{id}', 'showPurchasePage');

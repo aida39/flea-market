@@ -28,4 +28,9 @@ class Item extends Model
     {
         return $this->belongsToMany(Category::class, 'item_category_mappings');
     }
+
+    public function favorite()
+    {
+        return $this->hasMany(Favorite::class);
+    }
 }

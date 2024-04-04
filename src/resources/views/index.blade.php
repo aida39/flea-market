@@ -18,7 +18,15 @@
             @endforeach
         </div>
         <div class="tab-content__item">
-            マイリストはありません
+            @if (Auth::check())
+            @foreach($favorite_items as $favorite_item)
+            <a href="/item/{{$favorite_item['id']}}">
+                <img src="{{asset($favorite_item['image_path'])}}" alt="item_image">
+            </a>
+            @endforeach
+            @else
+            閲覧にはログインが必要です
+            @endif
         </div>
     </div>
 </div>
