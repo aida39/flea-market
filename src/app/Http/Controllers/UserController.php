@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -13,10 +14,11 @@ class UserController extends Controller
     {
         $user_id = Auth::id();
         $profile = Profile::where('user_id', $user_id)->with('user')->first();
-        return view('mypage', compact('profile'));
+        $items = Item::where('user_id', $user_id)->get();
+        return view('mypage', compact('profile', 'items'));
     }
 
-    public function editProfile()
+    public function showProfileForm()
     {
         $user_id = Auth::id();
         $profile = Profile::where('user_id', $user_id)->with('user')->first();

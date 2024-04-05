@@ -24,10 +24,14 @@ Route::controller(ItemController::class)->group(function () {
     Route::get('/item/{id}', 'detail');
     Route::get('/comment/{id}', 'showCommentPage');
     Route::post('/comment/{id}', 'storeComment');
+    Route::get('/sell', 'showListingForm');
+    Route::post('/sell', 'storeItem');
+
 });
 
-Route::patch('/favorite/{id}', [FavoriteController::class, 'switchFavoriteStatus'])
-    ->middleware('auth');
+Route::controller(FavoriteController::class)->group(function () {
+    Route::patch('/favorite/{id}', 'switchFavoriteStatus')->middleware('auth');
+});
 
 Route::controller(OrderController::class)->group(function () {
     Route::get('/purchase/{id}', 'showPurchasePage');
@@ -47,6 +51,6 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::controller(UserController::class)->middleware('auth')->group(function () {
     Route::get('/mypage', 'mypage');
-    Route::get('/mypage/profile', 'editProfile');
+    Route::get('/mypage/profile', 'showProfileForm');
     Route::post('/mypage/profile', 'updateOrCreateProfile');
 });

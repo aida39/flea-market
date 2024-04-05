@@ -9,7 +9,7 @@
     {{ session('result') }}
 </div>
 @endif
-<div class="form-container">
+<div class="form__container">
     <h1 class="page-title">ログイン</h1>
     <form action="/login" method="post">
         @csrf

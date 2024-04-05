@@ -1,9 +1,9 @@
-function previewImage(event) {
+function previewImage(event, className) {
     var reader = new FileReader();
     reader.onload = function () {
         var output = document.getElementById("imagePreview");
         output.innerHTML =
-            '<img src="' + reader.result + '" class="user-image">';
+            '<img src="' + reader.result + '" class="' + className + '">';
     };
     reader.readAsDataURL(event.target.files[0]);
 

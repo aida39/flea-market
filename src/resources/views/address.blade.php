@@ -4,7 +4,7 @@
 @endsection
 
 @section('content')
-<div class="form-container">
+<div class="form__container">
     <h1 class="page-title">配送先の変更</h1>
     <form action="/purchase/address/{{$item['id']}}" method="post">
         @csrf

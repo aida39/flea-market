@@ -25,7 +25,7 @@
             </a>
             @endforeach
             @else
-            閲覧にはログインが必要です
+            ログイン後に表示されます
             @endif
         </div>
     </div>

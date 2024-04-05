@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Comment;
 use App\Models\Favorite;
-
+use App\Models\Condition;
+use App\Models\Category;
 
 class ItemController extends Controller
 {
@@ -52,5 +53,28 @@ class ItemController extends Controller
         Comment::create($comment_data);
 
         return redirect('/comment/' . $id);
+    }
+
+    public function showListingForm()
+    {
+        $categories = Category::all();
+        $conditions = Condition::all();
+
+        return view('sell', compact('conditions', 'categories'));
+    }
+
+    public function storeItem(Request $request)
+    {
+
+        $request->file('image')->store('public/images');
+        $image_path = 'storage/images/' . $request->file('image')->hashName();
+
+        $item_data = array_merge($request->only('condition_id', 'name', 'brand', 'description', 'price'), ['user_id' => Auth::id(), 'image_path' => $image_path, 'recommend_flag' => '1']);
+
+        $item = Item::create($item_data);
+        $categories = $request->input('category_id');
+        $item->categories()->attach($categories);
+
+        return redirect('/mypage');
     }
 }

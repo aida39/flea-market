@@ -19,15 +19,11 @@
     </ul>
     <div class="tab-content">
         <div class="tab-content__item show">
-            <a href="/item/3">
-                <img src="{{asset('images/item_01.jpg')}}" alt="item_image">
+            @foreach($items as $item)
+            <a href="/item/{{$item['id']}}">
+                <img src="{{asset($item['image_path'])}}" alt="item_image">
             </a>
-            <a href="/item/4">
-                <img src="{{asset('images/item_01.jpg')}}" alt="item_image">
-            </a>
-            <a href="/item/4">
-                <img src="{{asset('images/item_01.jpg')}}" alt="item_image">
-            </a>
+            @endforeach
         </div>
         <div class="tab-content__item">
             購入した商品はありません

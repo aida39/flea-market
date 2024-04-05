@@ -7,7 +7,7 @@
 <div class="container">
     <div class="left-container ratio3-2">
         <div class="purchase__item-info">
-            <img src="{{asset($item['image_path'])}}" alt="item-image" class="purchase__image">
+            <img src="{{asset($item['image_path'])}}" alt="item-image" class="item-image--small">
             <div class="purchase__item-detail">
                 <h1 class="purchase__name">{{$item['name']}}</h1>
                 <span class="purchase__price">¥{{ number_format($item['price']) }}</span>

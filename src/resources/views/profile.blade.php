@@ -4,7 +4,7 @@
 @endsection
 
 @section('content')
-<div class="form-container">
+<div class="form__container">
     <h1 class="page-title">プロフィール設定</h1>
     <form action="/mypage/profile" method="post" enctype="multipart/form-data">
         @csrf
@@ -12,8 +12,8 @@
             <div id="imagePreview">
                 <img class="user-image" src="{{ asset($profile['image_path'] ?? asset('images/user.jpg')) }}" alt="Current Image">
             </div>
-            <input class="" type="file" name="image" id="input-file-01" onchange="previewImage(event)">
-            <div class="">
+            <input type="file" name="image" id="input-file-01" onchange="previewImage(event, 'user-image')">
+            <div>
                 <button id="bt-file-01" class="image-button" type="button">画像を選択する</button>
                 <span id="output-01" class="output"></span>
             </div>
