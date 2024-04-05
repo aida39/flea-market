@@ -34,4 +34,16 @@ class Item extends Model
     {
         return $this->hasMany(Favorite::class);
     }
+
+    public function scopeKeywordSearch($query, $keyword)
+    {
+        if (!empty($keyword)) {
+            $query->where(function ($query) use ($keyword) {
+                $query->where('name', 'like', '%' . $keyword . '%')
+                    ->orWhereHas('categories', function ($query) use ($keyword) {
+                        $query->where('name', 'like', '%' . $keyword . '%');
+                    });
+            });
+        }
+    }
 }

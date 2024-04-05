@@ -34,6 +34,16 @@ class ItemController extends Controller
         return view('item', compact('item', 'categories', 'comment_count', 'favorite_count', 'is_favorite'));
     }
 
+    public function search(Request $request)
+    {
+        $items = Item::KeywordSearch($request->keyword)->get();
+        $favorite_items = Item::whereHas('favorite', function ($query) {
+            $query->where('user_id', Auth::id());
+        })->get();
+
+        return view('index', compact('items', 'favorite_items'));
+    }
+
     public function showCommentPage($id)
     {
         $item = Item::findOrFail($id);

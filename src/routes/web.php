@@ -22,11 +22,11 @@ use App\Http\Controllers\UserController;
 Route::controller(ItemController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/item/{id}', 'detail');
+    Route::get('/search', 'search');
     Route::get('/comment/{id}', 'showCommentPage');
     Route::post('/comment/{id}', 'storeComment');
     Route::get('/sell', 'showListingForm');
     Route::post('/sell', 'storeItem');
-
 });
 
 Route::controller(FavoriteController::class)->group(function () {

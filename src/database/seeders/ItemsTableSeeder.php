@@ -18,7 +18,7 @@ class ItemsTableSeeder extends Seeder
         $param = [
             'user_id' => '1',
             'condition_id' => '1',
-            'name' => '商品01',
+            'name' => 'NEW YORK Tシャツ',
             'brand' => 'グローバルクロージング',
             'description' => '購入後、即発送します',
             'image_path' => '/images/item_01.jpg',
@@ -30,7 +30,7 @@ class ItemsTableSeeder extends Seeder
         $param = [
             'user_id' => '2',
             'condition_id' => '2',
-            'name' => '商品02',
+            'name' => 'カーディガン',
             'brand' => 'アーバンスタイル',
             'description' => '購入後、即発送します',
             'image_path' => '/images/item_02.jpg',
@@ -42,7 +42,7 @@ class ItemsTableSeeder extends Seeder
         $param = [
             'user_id' => '3',
             'condition_id' => '3',
-            'name' => '商品03',
+            'name' => 'カットソー 赤',
             'brand' => 'モダンウェア',
             'description' => '購入後、即発送します',
             'image_path' => '/images/item_03.jpg',
@@ -54,7 +54,7 @@ class ItemsTableSeeder extends Seeder
         $param = [
             'user_id' => '4',
             'condition_id' => '4',
-            'name' => '商品04',
+            'name' => 'ダウンジャケット 黒',
             'brand' => 'アーバンスタイル',
             'description' => '購入後、即発送します',
             'image_path' => '/images/item_04.jpg',
@@ -66,7 +66,7 @@ class ItemsTableSeeder extends Seeder
         $param = [
             'user_id' => '5',
             'condition_id' => '1',
-            'name' => '商品05',
+            'name' => 'ダウンジャケット 白',
             'brand' => 'アーバンスタイル',
             'description' => '購入後、即発送します',
             'image_path' => '/images/item_05.jpg',
@@ -78,7 +78,7 @@ class ItemsTableSeeder extends Seeder
         $param = [
             'user_id' => '1',
             'condition_id' => '2',
-            'name' => '商品06',
+            'name' => 'ルームウェア上下セット',
             'brand' => 'モダンウェア',
             'description' => '購入後、即発送します',
             'image_path' => '/images/item_06.jpg',
@@ -90,7 +90,7 @@ class ItemsTableSeeder extends Seeder
         $param = [
             'user_id' => '2',
             'condition_id' => '3',
-            'name' => '商品07',
+            'name' => 'パンプス 白',
             'brand' => 'モダンウェア',
             'description' => '購入後、即発送します',
             'image_path' => '/images/item_07.jpg',
@@ -102,12 +102,12 @@ class ItemsTableSeeder extends Seeder
         $param = [
             'user_id' => '3',
             'condition_id' => '3',
-            'name' => '商品08',
+            'name' => 'レザーバッグ',
             'brand' => 'グローバルクロージング',
             'description' => '購入後、即発送します',
             'image_path' => '/images/item_08.jpg',
             'price' => '6000',
-            'recommend_flag' => '0',
+            'recommend_flag' => '1',
             'created_at' => '2024-04-01 11:00:00',
         ];
         DB::table('items')->insert($param);

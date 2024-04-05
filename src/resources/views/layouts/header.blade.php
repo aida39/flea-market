@@ -21,7 +21,10 @@
         @if(request()->is('login') || request()->is('register'))
         @else
         <div>
-            <input class="header__search" type="text" placeholder="なにをお探しですか？">
+            <form class="search__content__form" action="/search" method="get">
+                @csrf
+                <input class="header__search" type="search" name="keyword" placeholder="なにをお探しですか？" value="{{ request()->query('keyword') }}">
+            </form>
         </div>
         @if (Auth::check())
         <ul class="header__link">
