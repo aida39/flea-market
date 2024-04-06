@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AuthController;
@@ -23,10 +24,13 @@ Route::controller(ItemController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/item/{id}', 'detail');
     Route::get('/search', 'search');
-    Route::get('/comment/{id}', 'showCommentPage');
-    Route::post('/comment/{id}', 'storeComment');
     Route::get('/sell', 'showListingForm');
     Route::post('/sell', 'storeItem');
+});
+
+Route::controller(CommentController::class)->group(function () {
+    Route::get('/comment/{id}', 'showCommentPage');
+    Route::post('/comment/{id}', 'storeComment');
 });
 
 Route::controller(FavoriteController::class)->group(function () {

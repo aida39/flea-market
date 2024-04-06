@@ -7,6 +7,7 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ProfileRequest;
 
 class UserController extends Controller
 {
@@ -25,7 +26,7 @@ class UserController extends Controller
         return view('profile', compact('profile'));
     }
 
-    public function updateOrCreateProfile(Request $request)
+    public function updateOrCreateProfile(ProfileRequest $request)
     {
         $user_id = Auth::id();
         $profile = Profile::where('user_id', $user_id)->with('user')->first();

@@ -13,11 +13,25 @@
     <h1 class="page-title">ログイン</h1>
     <form action="/login" method="post">
         @csrf
-        <label class="form__label">メールアドレス</label>
-        <input type="email" class="form__input" name="email" value="{{old('email')}}">
+        <div class="form__item">
+            <label class="form__label">メールアドレス</label>
+            <input type="email" class="form__input" name="email" value="{{old('email')}}">
+            <div class="error-message">
+                @error('email')
+                {{ $message }}
+                @enderror
+            </div>
+        </div>
 
-        <label class="form__label">パスワード</label>
-        <input type="password" class="form__input" name="password">
+        <div class="form__item">
+            <label class="form__label">パスワード</label>
+            <input type="password" class="form__input" name="password">
+            <div class="error-message">
+                @error('password')
+                {{ $message }}
+                @enderror
+            </div>
+        </div>
 
         <button class="form__button" type="submit">ログインする</button>
     </form>

@@ -9,6 +9,7 @@ use App\Models\Comment;
 use App\Models\Favorite;
 use App\Models\Condition;
 use App\Models\Category;
+use App\Http\Requests\SellRequest;
 
 class ItemController extends Controller
 {
@@ -44,27 +45,6 @@ class ItemController extends Controller
         return view('index', compact('items', 'favorite_items'));
     }
 
-    public function showCommentPage($id)
-    {
-        $item = Item::findOrFail($id);
-
-        $comments = Comment::where('item_id', $id)->with('user.profile')->get();
-        $comment_count = $comments->count();
-
-        $favorite_count = Favorite::where('item_id', $id)->count();
-        $is_favorite = $item->favorite->contains('user_id', Auth::id());
-
-        return view('comment', compact('item', 'comments', 'comment_count', 'favorite_count', 'is_favorite'));
-    }
-
-    public function storeComment(Request $request, $id)
-    {
-        $comment_data = array_merge($request->only('comment'), ['user_id' => Auth::id(), 'item_id' => $id]);
-        Comment::create($comment_data);
-
-        return redirect('/comment/' . $id);
-    }
-
     public function showListingForm()
     {
         $categories = Category::all();
@@ -73,7 +53,7 @@ class ItemController extends Controller
         return view('sell', compact('conditions', 'categories'));
     }
 
-    public function storeItem(Request $request)
+    public function storeItem(SellRequest $request)
     {
 
         $request->file('image')->store('public/images');

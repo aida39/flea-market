@@ -31,7 +31,7 @@
                     <span class="count">{{$comment_count}}</span>
                 </div>
             </div>
-            @foreach($comments as $comment)
+            @forelse($comments as $comment)
             <div class="comment-area">
                 <div class="comment-user-info">
                     <img src="{{ asset($comment->user->profile->image_path ?? asset('images/user.jpg')) }}" alt="user-image" class=" user-image--small">
@@ -43,11 +43,21 @@
                 </div>
                 <p class="comment-text">{{$comment['comment']}}</p>
             </div>
-            @endforeach
+            @empty
+            <p class="comment-empty">コメントはありません</p>
+            @endforelse
             <form action="/comment/{{$item['id']}}" method="post" class="comment-form">
                 @csrf
-                <label class="form__label">商品へのコメント</label>
-                <textarea name="comment" class="form__textarea"></textarea>
+                <div class="form__item--compact">
+                    <label class="form__label">商品へのコメント</label>
+                    <textarea name="comment" class="form__textarea">{{ old('comment') }}</textarea>
+                    <div class="error-message">
+                        @error('comment')
+                        {{ $message }}
+                        @enderror
+                    </div>
+                </div>
+
                 <button class="form__button" type="submit">コメントを送信する</button>
             </form>
         </div>
