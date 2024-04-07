@@ -24,20 +24,20 @@ Route::controller(ItemController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/item/{id}', 'detail');
     Route::get('/search', 'search');
-    Route::get('/sell', 'showListingForm');
-    Route::post('/sell', 'storeItem');
+    Route::get('/sell', 'showListingForm')->middleware('auth');
+    Route::post('/sell', 'storeItem')->middleware('auth');
 });
 
 Route::controller(CommentController::class)->group(function () {
     Route::get('/comment/{id}', 'showCommentPage');
-    Route::post('/comment/{id}', 'storeComment');
+    Route::post('/comment/{id}', 'storeComment')->middleware('auth');
 });
 
 Route::controller(FavoriteController::class)->group(function () {
     Route::patch('/favorite/{id}', 'switchFavoriteStatus')->middleware('auth');
 });
 
-Route::controller(OrderController::class)->group(function () {
+Route::controller(OrderController::class)->middleware('auth')->group(function () {
     Route::get('/purchase/{id}', 'showPurchasePage');
     Route::post('/purchase/{id}', 'submitPurchase');
     Route::get('/purchase/address/{id}', 'showAddressForm');
