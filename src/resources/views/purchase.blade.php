@@ -1,6 +1,7 @@
 @extends('layouts.header')
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('css/purchase-page.css') }}" />
 @endsection
 
 @section('content')

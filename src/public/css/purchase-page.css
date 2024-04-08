@@ -1,0 +1,38 @@
+.purchase__item-info {
+    display: flex;
+}
+
+.purchase__name {
+    margin-bottom: 60px;
+    font-size: 22px;
+}
+
+.purchase__price {
+    font-size: 18px;
+}
+
+.purchase__item-detail {
+    margin-left: 80px;
+}
+
+.purchase__payment-select {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 0 120px;
+}
+
+.purchase__payment-info {
+    margin-bottom: 60px;
+    padding: 60px 0 0 40px;
+    border: #000 1px solid;
+}
+
+.purchase__payment-info li {
+    list-style: none;
+    margin-bottom: 40px;
+}
+
+.purchase__payment-detail {
+    display: inline-block;
+    width: 120px;
+}

@@ -11,19 +11,23 @@
     </ul>
     <div class="tab-content">
         <div class="tab-content__item show">
-            @foreach($items as $item)
+            @forelse($items as $item)
             <a href="/item/{{$item['id']}}">
                 <img src="{{asset($item['image_path'])}}" alt="item_image">
             </a>
-            @endforeach
+            @empty
+            <p>商品はありません</p>
+            @endforelse
         </div>
         <div class="tab-content__item">
             @if (Auth::check())
-            @foreach($favorite_items as $favorite_item)
+            @forelse($favorite_items as $favorite_item)
             <a href="/item/{{$favorite_item['id']}}">
                 <img src="{{asset($favorite_item['image_path'])}}" alt="item_image">
             </a>
-            @endforeach
+            @empty
+            <p>お気に入り商品はありません</p>
+            @endforelse
             @else
             ログイン後に表示されます
             @endif

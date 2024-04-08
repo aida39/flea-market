@@ -19,14 +19,16 @@
     </ul>
     <div class="tab-content">
         <div class="tab-content__item show">
-            @foreach($items as $item)
+            @forelse($items as $item)
             <a href="/item/{{$item['id']}}">
                 <img src="{{asset($item['image_path'])}}" alt="item_image">
             </a>
-            @endforeach
+            @empty
+            <p>出品した商品はありません</p>
+            @endforelse
         </div>
         <div class="tab-content__item">
-            購入した商品はありません
+            <p>購入した商品はありません</p>
         </div>
     </div>
 </div>

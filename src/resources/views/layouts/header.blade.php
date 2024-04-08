@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>COACHTECH フリマ</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/common.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/reset.css') }}" />
     @yield('css')
 </head>
@@ -35,9 +35,12 @@
                 <a href="/mypage">マイページ</a>
             </li>
             <li class="header__link-item">
+                @if (request()->is('sell'))
+                @else
                 <button class="header__link-button">
                     <a href="/sell">出品</a>
                 </button>
+                @endif
             </li>
         </ul>
         @else
@@ -57,7 +60,6 @@
         @endif
         @endif
     </header>
-
     <main>
         @yield('content')
     </main>

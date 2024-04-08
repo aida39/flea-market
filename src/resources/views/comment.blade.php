@@ -1,6 +1,7 @@
 @extends('layouts.header')
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('css/comment-page.css') }}" />
 @endsection
 
 @section('content')
@@ -41,7 +42,15 @@
                     <span class="comment-author">新規ユーザー</span>
                     @endif
                 </div>
-                <p class="comment-text">{{$comment['comment']}}</p>
+                <div class="comment-textarea">
+                    <p class="comment-text">{{$comment['comment']}}</p>
+                    <form class="" action="" method="post" onsubmit="cancelReservationConfirmation(event);">
+                        @csrf
+                        <button type="submit" class="">
+                            <span>×</span>
+                        </button>
+                    </form>
+                </div>
             </div>
             @empty
             <p class="comment-empty">コメントはありません</p>
