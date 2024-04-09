@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Comment;
@@ -17,6 +18,10 @@ class CommentController extends Controller
         $comments = Comment::where('item_id', $id)->with('user.profile')->get();
         $comment_count = $comments->count();
 
+        foreach ($comments as $comment) {
+            $comment->is_user_comment = $comment->user_id === Auth::id();
+        }
+
         $favorite_count = Favorite::where('item_id', $id)->count();
         $is_favorite = $item->favorite->contains('user_id', Auth::id());
 
@@ -29,5 +34,12 @@ class CommentController extends Controller
         Comment::create($comment_data);
 
         return redirect('/comment/' . $id);
+    }
+
+    public function deleteComment(Request $request, $id)
+    {
+        Comment::find($request->comment_id)->delete();
+
+        return redirect()->back();
     }
 }

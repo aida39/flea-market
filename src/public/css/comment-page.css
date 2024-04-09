@@ -1,27 +1,44 @@
-.comment-user-info {
+.comment__wrapper {
+    margin-bottom: 60px;
+}
+
+.comment__user-info {
     display: flex;
     align-items: center;
     margin: 20px 0 10px;
 }
 
-.comment-author {
+.comment__author {
     margin-left: 10px;
     font-weight: bold;
 }
 
-.comment-textarea {
+.comment__textarea {
     background-color: #d9d9d9;
 }
 
-.comment-text {
+.comment__text {
     padding: 10px;
     border-radius: 3px;
 }
 
-.comment-form {
-    margin-top: 60px;
+.comment__delete-form {
+    display: flex;
+    justify-content: flex-end;
+
 }
 
-.comment-empty {
+.comment__delete-button {
+    margin: 0 5px 5px 0;
+    border: none;
+    font-size: 18px;
+}
+
+.comment__delete-button:hover {
+    background-color: #fffefe;
+    cursor: pointer;
+}
+
+.comment__empty-message {
     margin-top: 20px;
 }

@@ -32,30 +32,37 @@
                     <span class="count">{{$comment_count}}</span>
                 </div>
             </div>
-            @forelse($comments as $comment)
-            <div class="comment-area">
-                <div class="comment-user-info">
-                    <img src="{{ asset($comment->user->profile->image_path ?? asset('images/user.jpg')) }}" alt="user-image" class=" user-image--small">
-                    @if($comment->user->profile)
-                    <span class="comment-author">{{ $comment->user->profile->name }}</span>
-                    @else
-                    <span class="comment-author">新規ユーザー</span>
-                    @endif
+
+            <div class="comment__wrapper">
+                @forelse($comments as $comment)
+                <div class="comment__content">
+                    <div class="comment__user-info">
+                        <img src="{{ asset($comment->user->profile->image_path ?? asset('images/user.jpg')) }}" alt="user-image" class=" user-image--small">
+                        @if($comment->user->profile)
+                        <span class="comment__author">{{ $comment->user->profile->name }}</span>
+                        @else
+                        <span class="comment__author">新規ユーザー</span>
+                        @endif
+                    </div>
+                    <div class="comment__textarea">
+                        <p class="comment__text">{{$comment['comment']}}</p>
+                        @if($comment->is_user_comment)
+                        <form class="comment__delete-form" action="/comment/delete/{{$comment['id']}}" method="post">
+                            @csrf
+                            <input type="hidden" name="comment_id" value="{{$comment['id']}}">
+                            <button type="submit" class="comment__delete-button">
+                                <span>×</span>
+                            </button>
+                        </form>
+                        @endif
+                    </div>
                 </div>
-                <div class="comment-textarea">
-                    <p class="comment-text">{{$comment['comment']}}</p>
-                    <form class="" action="" method="post" onsubmit="cancelReservationConfirmation(event);">
-                        @csrf
-                        <button type="submit" class="">
-                            <span>×</span>
-                        </button>
-                    </form>
-                </div>
+                @empty
+                <p class="comment__empty-message">コメントはありません</p>
+                @endforelse
             </div>
-            @empty
-            <p class="comment-empty">コメントはありません</p>
-            @endforelse
-            <form action="/comment/{{$item['id']}}" method="post" class="comment-form">
+
+            <form action="/comment/{{$item['id']}}" method="post">
                 @csrf
                 <div class="form__item--compact">
                     <label class="form__label">商品へのコメント</label>
@@ -66,7 +73,6 @@
                         @enderror
                     </div>
                 </div>
-
                 <button class="form__button" type="submit">コメントを送信する</button>
             </form>
         </div>

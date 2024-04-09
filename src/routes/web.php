@@ -31,6 +31,7 @@ Route::controller(ItemController::class)->group(function () {
 Route::controller(CommentController::class)->group(function () {
     Route::get('/comment/{id}', 'showCommentPage');
     Route::post('/comment/{id}', 'storeComment')->middleware('auth');
+    Route::post('/comment/delete/{id}', 'deleteComment')->middleware('auth');
 });
 
 Route::controller(FavoriteController::class)->group(function () {
