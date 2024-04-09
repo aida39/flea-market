@@ -46,12 +46,16 @@ Route::controller(OrderController::class)->middleware('auth')->group(function ()
 });
 
 Route::controller(AuthController::class)->group(function () {
-    Route::get('/register', 'getRegister');
-    Route::post('/register', 'postRegister');
+    Route::middleware('guest')->group(function () {
+        Route::get('/register', 'getRegister');
+        Route::post('/register', 'postRegister');
+        Route::get('/login', 'getLogin');
+        Route::post('/login', 'postLogin');
+    });
 
-    Route::get('/login', 'getLogin');
-    Route::post('/login', 'postLogin');
-    Route::get('/logout', 'getLogout')->middleware('auth');
+    Route::middleware('auth')->group(function () {
+        Route::get('/logout', 'getLogout');
+    });
 });
 
 Route::controller(UserController::class)->middleware('auth')->group(function () {

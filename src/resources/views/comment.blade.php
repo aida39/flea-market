@@ -50,7 +50,7 @@
                         <form class="comment__delete-form" action="/comment/delete/{{$comment['id']}}" method="post">
                             @csrf
                             <input type="hidden" name="comment_id" value="{{$comment['id']}}">
-                            <button type="submit" class="comment__delete-button">
+                            <button type="submit" class="comment__delete-button" onclick="confirmAction(event, 'このコメントを削除しますか？');">
                                 <span>×</span>
                             </button>
                         </form>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 @empty
-                <p class="comment__empty-message">コメントはありません</p>
+                <p class=" comment__empty-message">コメントはありません</p>
                 @endforelse
             </div>
 
@@ -78,4 +78,5 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('js/confirmation-window.js') }}"></script>
 @endsection

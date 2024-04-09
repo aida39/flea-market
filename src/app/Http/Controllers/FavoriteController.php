@@ -13,11 +13,9 @@ class FavoriteController extends Controller
         $user_id = Auth::id();
         $item = Item::findOrFail($id);
 
-        if ($item->favorite()->where('user_id', $user_id)->exists()) {
-            $item->favorite()->where('user_id', $user_id)->delete();
-        } else {
-            $item->favorite()->create(['user_id' => $user_id]);
-        }
+        $item->favorite()->where('user_id', $user_id)->exists()
+            ? $item->favorite()->where('user_id', $user_id)->delete()
+            : $item->favorite()->create(['user_id' => $user_id]);
 
         return redirect()->back();
     }

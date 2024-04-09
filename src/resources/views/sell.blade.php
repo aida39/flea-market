@@ -108,10 +108,11 @@
             </div>
         </div>
 
-        <button class="form__button" type="submit">出品する</button>
+        <button class="form__button" type="submit" onclick="confirmAction(event, '出品してよろしいですか？');">出品する</button>
     </form>
 </div>
 <script src="{{ asset('js/file-select.js') }}"></script>
 <script src="{{ asset('js/image-preview.js') }}"></script>
 <script src="{{ asset('js/show-checkbox.js') }}"></script>
+<script src="{{ asset('js/confirmation-window.js') }}"></script>
 @endsection

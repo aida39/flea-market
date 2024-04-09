@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Profile;
 use App\Models\Item;
 
 class OrderController extends Controller
@@ -17,8 +16,8 @@ class OrderController extends Controller
 
     public function showAddressForm($id)
     {
-        $user_id = Auth::id();
-        $profile = Profile::where('user_id', $user_id)->with('user')->first();
+        $user = Auth::user();
+        $profile = $user->profile;
 
         $item = Item::findOrFail($id);
         return view('address', compact('item', 'profile'));
