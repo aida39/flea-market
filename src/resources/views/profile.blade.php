@@ -35,7 +35,7 @@
         </div>
 
         <div class="form__item--compact">
-            <label class="form__label">郵便番号</label>
+            <label class="form__label">郵便番号（ハイフン不要）</label>
             <input type="text" class="form__input" name="postal_code" value="{{old('postal_code', $profile ? $profile['postal_code'] : '') }}">
             <div class="error-message">
                 @error('postal_code')

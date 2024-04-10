@@ -36,7 +36,11 @@
                         </li>
                         <li>
                             <span class="purchase__payment-detail">配送先</span>
+                            @if($shipping_address)
+                            <span>{{$shipping_address['address']}}</span>
+                            @else
                             <span>入力されていません</span>
+                            @endif
                         </li>
                         <li>
                             <span class="purchase__payment-detail">支払い金額</span>

@@ -10,16 +10,18 @@ use App\Http\Requests\ProfileRequest;
 
 class UserController extends Controller
 {
+    private $user_id;
+
     private function getUserProfile()
     {
-        $user_id = Auth::id();
-        return Profile::where('user_id', $user_id)->with('user')->first();
+        $this->user_id = Auth::id();
+        return Profile::where('user_id', $this->user_id)->with('user')->first();
     }
 
     public function mypage()
     {
         $profile = $this->getUserProfile();
-        $items = Item::where('user_id', $profile->user_id)->get();
+        $items = Item::where('user_id', $this->user_id)->get();
         return view('mypage', compact('profile', 'items'));
     }
 
@@ -45,8 +47,8 @@ class UserController extends Controller
         }
 
         Profile::updateOrCreate(
-            ['user_id' => $profile->user_id],
-            array_merge($request->only(['name', 'postal_code', 'address', 'building']), ['user_id' => $profile->user_id, 'image_path' => $image_path])
+            ['user_id' => $this->user_id],
+            array_merge($request->only(['name', 'postal_code', 'address', 'building']), ['user_id' => $this->user_id, 'image_path' => $image_path])
         );
 
         return redirect('/mypage');
