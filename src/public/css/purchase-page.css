@@ -21,18 +21,25 @@
     margin: 40px 0 120px;
 }
 
+.purchase__wrapper {
+    width: 450px;
+}
+
 .purchase__payment-info {
     margin-bottom: 60px;
-    padding: 60px 0 0 40px;
+    padding: 50px 20px 0 30px;
     border: #000 1px solid;
 }
 
 .purchase__payment-info li {
     list-style: none;
     margin-bottom: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .purchase__payment-detail {
     display: inline-block;
-    width: 120px;
+    width: 110px;
 }

@@ -4,6 +4,11 @@
 @endsection
 
 @section('content')
+@if (session('result'))
+<div class="flash-message">
+    {{ session('result') }}
+</div>
+@endif
 <div class="tab">
     <ul class="tab-menu">
         <li class="tab-menu__item active">おすすめ</li>
