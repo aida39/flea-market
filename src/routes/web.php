@@ -49,7 +49,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::middleware('guest')->group(function () {
         Route::get('/register', 'getRegister');
         Route::post('/register', 'postRegister');
-        Route::get('/login', 'getLogin');
+        Route::get('/login', 'getLogin')->name('login');
         Route::post('/login', 'postLogin');
     });
 

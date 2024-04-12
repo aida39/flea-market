@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -36,15 +37,19 @@ class AuthController extends Controller
     public function postLogin(LoginRequest $request)
     {
         if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->intended('/');
+            return redirect()->intended('/')->with('result', 'ログインしました');
         } else {
             return redirect('/login')->with('result', 'メールアドレスまたはパスワードが違います');
         }
     }
 
-    public function getLogout()
+    public function getLogout(Request $request)
     {
         Auth::logout();
-        return redirect("/");
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect("/")->with('result', 'ログアウトしました');
     }
 }

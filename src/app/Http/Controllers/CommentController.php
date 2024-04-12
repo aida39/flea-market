@@ -18,6 +18,10 @@ class CommentController extends Controller
         $comments = $item->comments()->with('user.profile')->get();
         $comment_count = $comments->count();
 
+        foreach ($comments as $comment) {
+            $comment->is_user_comment = $comment->user_id === Auth::id();
+        }
+
         $favorite_count = Favorite::where('item_id', $id)->count();
         $is_favorite = $item->favorite->contains('user_id', Auth::id());
 

@@ -40,7 +40,7 @@
                         </li>
                         <li>
                             <span class="purchase__payment-detail">支払い方法</span>
-                            <span>選択されていません</span>
+                            <span>選択してください</span>
                         </li>
                         <li>
                             <span class="purchase__payment-detail">配送先</span>
@@ -48,13 +48,17 @@
                             <span>{{$shipping_address['address']}}</span>
                             <span>{{$shipping_address['building'] ?? '' }}</span>
                             @else
-                            <span>入力されていません</span>
+                            <span>選択してください</span>
                             @endif
                         </li>
                     </ul>
                 </div>
                 <input type="hidden" name="amount" id="amount" value="{{ $item['price'] }}">
+                @if($shipping_address)
                 <button class="form__button" type="button" onclick="openStripeCheckout()">購入する</button>
+                @else
+                <p class="button-style--disabled">購入する</p>
+                @endif
             </form>
         </div>
     </div>
