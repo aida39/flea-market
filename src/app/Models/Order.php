@@ -15,4 +15,9 @@ class Order extends Model
         'payment_type_id',
         'shipping_address_id',
     ];
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

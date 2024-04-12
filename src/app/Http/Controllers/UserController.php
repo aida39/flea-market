@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Profile;
 use App\Models\Item;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ProfileRequest;
@@ -21,8 +22,9 @@ class UserController extends Controller
     public function mypage()
     {
         $profile = $this->getUserProfile();
-        $items = Item::where('user_id', $this->user_id)->get();
-        return view('mypage', compact('profile', 'items'));
+        $selling_items = Item::where('user_id', $this->user_id)->get();
+        $purchased_items = Order::where('user_id', $this->user_id)->with('item')->get();
+        return view('mypage', compact('profile', 'selling_items', 'purchased_items'));
     }
 
     public function showProfileForm()

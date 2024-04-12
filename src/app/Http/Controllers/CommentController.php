@@ -21,7 +21,9 @@ class CommentController extends Controller
         $favorite_count = Favorite::where('item_id', $id)->count();
         $is_favorite = $item->favorite->contains('user_id', Auth::id());
 
-        return view('comment', compact('item', 'comments', 'comment_count', 'favorite_count', 'is_favorite'));
+        $is_available = $item->order ? false : true;
+
+        return view('comment', compact('item', 'comments', 'comment_count', 'favorite_count', 'is_favorite', 'is_available'));
     }
 
     public function storeComment(CommentRequest $request, $id)

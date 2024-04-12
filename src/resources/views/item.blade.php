@@ -31,7 +31,11 @@
                     <span class="count">{{$comment_count}}</span>
                 </div>
             </div>
+            @if($is_available)
             <a href="/purchase/{{$item['id']}}" class="button-style">購入する</a>
+            @else
+            <p class="button-style--disabled">売り切れました</p>
+            @endif
             <h2 class="section-heading">商品説明</h2>
             <p class="section-text">{{$item['description']}}</p>
             <h2 class="section-heading">商品の情報</h2>

@@ -19,16 +19,22 @@
     </ul>
     <div class="tab-content">
         <div class="tab-content__item show">
-            @forelse($items as $item)
-            <a href="/item/{{$item['id']}}">
-                <img src="{{asset($item['image_path'])}}" alt="item_image">
+            @forelse($selling_items as $selling_item)
+            <a href="/item/{{$selling_item['id']}}">
+                <img src="{{asset($selling_item['image_path'])}}" alt="item_image">
             </a>
             @empty
             <p>出品した商品はありません</p>
             @endforelse
         </div>
         <div class="tab-content__item">
+            @forelse($purchased_items as $purchased_item)
+            <a href="/item/{{$purchased_item['item']['id']}}">
+                <img src="{{asset($purchased_item['item']['image_path'])}}" alt="item_image">
+            </a>
+            @empty
             <p>購入した商品はありません</p>
+            @endforelse
         </div>
     </div>
 </div>

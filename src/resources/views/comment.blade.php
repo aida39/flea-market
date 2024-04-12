@@ -61,7 +61,7 @@
                 <p class=" comment__empty-message">コメントはありません</p>
                 @endforelse
             </div>
-
+            @if($is_available)
             <form action="/comment/{{$item['id']}}" method="post">
                 @csrf
                 <div class="form__item--compact">
@@ -75,6 +75,9 @@
                 </div>
                 <button class="form__button" type="submit">コメントを送信する</button>
             </form>
+            @else
+            <p>※売り切れのためコメントできません</p>
+            @endif
         </div>
     </div>
 </div>

@@ -46,7 +46,7 @@
                             <span class="purchase__payment-detail">配送先</span>
                             @if($shipping_address)
                             <span>{{$shipping_address['address']}}</span>
-                            <span>{{$shipping_address['building']}}</span>
+                            <span>{{$shipping_address['building'] ?? '' }}</span>
                             @else
                             <span>入力されていません</span>
                             @endif

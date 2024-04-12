@@ -37,7 +37,6 @@ class OrderController extends Controller
 
     public function submitPurchase(Request $request, $id)
     {
-
         $item = Item::findOrFail($id);
         $user = Auth::user();
 
@@ -50,7 +49,6 @@ class OrderController extends Controller
             'payment_type_id' => "1",
             'shipping_address_id' => $shipping_address_record->id,
         ]);
-
 
         $amount = $request->input('amount');
 
