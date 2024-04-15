@@ -43,6 +43,8 @@ Route::controller(OrderController::class)->middleware('auth')->group(function ()
     Route::post('/purchase/{id}', 'submitPurchase');
     Route::get('/purchase/address/{id}', 'showAddressForm');
     Route::post('/purchase/address/{id}', 'storeAddress');
+    Route::get('/purchase/payment/{id}', 'showPaymentForm');
+    Route::post('/purchase/payment/{id}', 'storePayment');
 });
 
 Route::controller(AuthController::class)->group(function () {

@@ -17,11 +17,11 @@
 
         <div class="purchase__payment-select">
             <h2 class="section-heading">支払い方法</h2>
-            <a href="/purchase/payment/{{$item['id']}}" class="section-link">変更する</a>
+            <a href="/purchase/payment/{{$item['id']}}" class="purchase__link">変更する</a>
         </div>
         <div class="purchase__payment-select">
             <h2 class="section-heading">配送先</h2>
-            <a href="/purchase/address/{{$item['id']}}" class="section-link">変更する</a>
+            <a href="/purchase/address/{{$item['id']}}" class="purchase__link">変更する</a>
         </div>
     </div>
     <div class="right-container ratio4-3">
@@ -40,22 +40,30 @@
                         </li>
                         <li>
                             <span class="purchase__payment-detail">支払い方法</span>
-                            <span>選択してください</span>
+                            @if($selected_payment_type)
+                            <span>{{ $selected_payment_type['name']}}</span>
+                            <input type="hidden" name="payment_type" value="{{ $selected_payment_type['id']}}">
+                            @else
+                            <span class="error-message">選択してください</span>
+                            @endif
                         </li>
                         <li>
                             <span class="purchase__payment-detail">配送先</span>
                             @if($shipping_address)
-                            <span>{{$shipping_address['address']}}</span>
-                            <span>{{$shipping_address['building'] ?? '' }}</span>
+                            <span>〒{{ substr($shipping_address['postal_code'], 0, 3) }}-{{ substr($shipping_address['postal_code'], 3) }}</span>
+                            <div class="purchase__payment-address">{{$shipping_address['address']}}</div>
+                            <div class="purchase__payment-address">{{$shipping_address['building'] ?? '' }}</div>
                             @else
-                            <span>選択してください</span>
+                            <span class="error-message">選択してください</span>
                             @endif
                         </li>
                     </ul>
                 </div>
                 <input type="hidden" name="amount" id="amount" value="{{ $item['price'] }}">
-                @if($shipping_address)
+                @if($shipping_address && $selected_payment_type['name']==='クレジットカード')
                 <button class="form__button" type="button" onclick="openStripeCheckout()">購入する</button>
+                @elseif($shipping_address && $selected_payment_type)
+                <button class="form__button" type="submit">購入する</button>
                 @else
                 <p class="button-style--disabled">購入する</p>
                 @endif
@@ -68,4 +76,5 @@
     var stripeKey = "{{ env('STRIPE_KEY') }}";
 </script>
 <script src="{{ asset('js/stripe-payment.js') }}"></script>
+<script src="{{ asset('js/payment-select.js') }}"></script>
 @endsection
