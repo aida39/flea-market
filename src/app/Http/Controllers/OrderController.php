@@ -9,6 +9,7 @@ use App\Models\ShippingAddress;
 use App\Models\Order;
 use App\Models\PaymentType;
 use App\Http\Requests\AddressRequest;
+use App\Http\Requests\PaymentRequest;
 use Stripe\Stripe;
 use Stripe\Charge;
 
@@ -110,7 +111,7 @@ class OrderController extends Controller
         }
     }
 
-    public function storePayment(Request $request, $id)
+    public function storePayment(PaymentRequest $request, $id)
     {
         $request->session()->put('selected_payment_type', [
             'id' => $request->input('id'),

@@ -15,11 +15,11 @@
                 <label for="{{$payment_type['id']}}">{{$payment_type['name']}}</label><br>
             </div>
             @endforeach
-            <div class="error-message">
-                @error('payment_type')
-                {{ $message }}
-                @enderror
-            </div>
+        </div>
+        <div class="error-message">
+            @error('id')
+            {{ $message }}
+            @enderror
         </div>
         <button class="form__button" type="submit">更新する</button>
     </form>
