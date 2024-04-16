@@ -16,9 +16,7 @@
                 </div>
                 <input type="file" name="image" id="input-file-01" onchange="previewImage(event, 'item-image--small')">
                 <button id="bt-file-01" class="image-button" type="button">画像を選択する</button>
-
                 <span id="output-01" class="output"></span>
-
             </div>
             <div class="error-message">
                 @error('image')

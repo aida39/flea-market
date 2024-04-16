@@ -12,7 +12,7 @@
 }
 
 .purchase__item-detail {
-    margin-left: 80px;
+    margin-left: 60px;
 }
 
 .purchase__payment-select {
@@ -34,9 +34,6 @@
 .purchase__payment-info li {
     list-style: none;
     margin-bottom: 40px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .purchase__payment-detail {
@@ -46,27 +43,51 @@
 
 .purchase__payment-address {
     margin: 8px 0 0 115px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* .contents {
-    opacity: 0;
-    transition-duration: 0.2s;
-}
-
-.contents-item {
-    margin: 10px 0;
-}
-
-.contents.is-open {
-    padding: 5px;
-    opacity: 1;
-} */
-/* .menu {
-    width: 420px;
-} */
 .purchase__link {
     text-align: end;
     text-decoration: none;
     color: #0073cc;
     cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .purchase__name {
+        margin-bottom: 60px;
+        font-size: 16px;
+    }
+
+    .purchase__item-detail {
+        margin-left: 20px;
+    }
+
+    .purchase__payment-select {
+        margin: 40px 0;
+    }
+
+    .purchase__payment-detail {
+        width: 90px;
+    }
+
+    .purchase__payment-address {
+        margin: 8px 0 0 95px;
+    }
+
+    .purchase__wrapper {
+        width: 100%;
+    }
+
+    .purchase__payment-info {
+        padding: 40px 20px 0;
+        font-size: 14px;
+    }
+
+    .purchase__link {
+        font-size: 14px;
+
+    }
 }

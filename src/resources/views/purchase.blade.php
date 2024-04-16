@@ -60,7 +60,7 @@
                     </ul>
                 </div>
                 <input type="hidden" name="amount" id="amount" value="{{ $item['price'] }}">
-                @if($shipping_address && $selected_payment_type['name']==='クレジットカード')
+                @if($shipping_address && $selected_payment_type && $selected_payment_type['name']==='クレジットカード')
                 <button class="form__button" type="button" onclick="openStripeCheckout()">購入する</button>
                 @elseif($shipping_address && $selected_payment_type)
                 <button class="form__button" type="submit">購入する</button>
