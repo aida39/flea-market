@@ -19,6 +19,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
+include __DIR__ . '/admin.php';
 
 Route::controller(ItemController::class)->group(function () {
     Route::get('/', 'index')->name('index');
@@ -48,7 +49,7 @@ Route::controller(OrderController::class)->middleware('auth')->group(function ()
 });
 
 Route::controller(AuthController::class)->group(function () {
-    Route::middleware('guest')->group(function () {
+    Route::middleware('guest.user:user')->group(function () {
         Route::get('/register', 'getRegister');
         Route::post('/register', 'postRegister');
         Route::get('/login', 'getLogin')->name('login');
