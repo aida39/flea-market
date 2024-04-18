@@ -38,11 +38,7 @@
                 <div class="comment__content">
                     <div class="comment__user-info">
                         <img src="{{ asset($comment->user->profile->image_path ?? asset('images/user.jpg')) }}" alt="user-image" class=" user-image--small">
-                        @if($comment->user->profile)
-                        <span class="comment__author">{{ $comment->user->profile->name }}</span>
-                        @else
-                        <span class="comment__author">新規ユーザー</span>
-                        @endif
+                        <span class="comment__author">{{ $comment->user->profile->name ?? '新規ユーザー' }}</span>
                     </div>
                     <div class="comment__textarea">
                         <p class="comment__text">{{$comment['comment']}}</p>

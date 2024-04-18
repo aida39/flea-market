@@ -1,0 +1,46 @@
+.admin__container {
+    width: 700px;
+    margin: 80px auto 0;
+}
+
+.admin__button {
+    width: 90px;
+    height: 40px;
+    margin: 20px 0;
+    border: none;
+    border-radius: 2px;
+    background-color: #f55;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.admin__comment-block {
+    margin-bottom: 40px;
+}
+
+
+.admin__label {
+    margin-right: 16px;
+}
+
+.admin__heading {
+    margin-bottom: 40px;
+    font-size: 20px;
+}
+
+.admin__subheading {
+    margin: 10px 0;
+}
+
+.admin__comment-area {
+    width: 70%;
+    margin: 20px auto;
+}
+
+.admin__message {
+    margin-bottom: 30px;
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+}

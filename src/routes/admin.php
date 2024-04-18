@@ -30,6 +30,8 @@ Route::prefix('admin')->controller(LoginController::class)->group(function () {
 Route::prefix('admin')->controller(AdminController::class)->middleware('auth.admin:admin')->group(
     function () {
         Route::get('/index', 'index');
+        Route::post('/comment/delete/{id}', 'deleteComment');
+        Route::post('/user/delete/{id}', 'deleteUser');
     }
 );
 

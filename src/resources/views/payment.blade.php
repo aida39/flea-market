@@ -12,7 +12,7 @@
             @foreach($payment_types as $payment_type)
             <div class="form__radio-wrapper">
                 <input type="radio" id="{{$payment_type['id']}}" name="id" value="{{$payment_type['id']}}" {{ isset($selected_payment_type) && $selected_payment_type['id'] == $payment_type['id'] ? 'checked' : '' }}>
-                <label for="{{$payment_type['id']}}">{{$payment_type['name']}}</label><br>
+                <label for="{{$payment_type['id']}}">{{$payment_type['name']}}</label>
             </div>
             @endforeach
         </div>
