@@ -22,6 +22,7 @@
         <h2 class="admin__heading">商品別コメント</h2>
         @foreach($items as $item)
         <div class="admin__comment-block">
+            <img src="{{asset($item['image_path'])}}" alt="item-image" class="item-image--small">
             <h3 class="admin__subheading">{{ $item->name}}</h3>
             <span>{{ $item->brand}}</span>
                 @foreach ($item->comments as $comment)
