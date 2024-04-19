@@ -13,6 +13,12 @@
     font-weight: bold;
 }
 
+@media screen and (max-width: 768px) {
+    .comment__author {
+        font-size: 14px;
+    }
+}
+
 .comment__textarea {
     background-color: #d9d9d9;
 }

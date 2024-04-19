@@ -3,16 +3,45 @@
     margin: 80px auto 0;
 }
 
+.admin__form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+@media screen and (max-width: 768px) {
+    .admin__container {
+        width: 300px;
+        margin: 80px auto 0;
+    }
+
+    .admin__form {
+        flex-direction: column;
+        align-items: baseline;
+    }
+
+    .admin__label-unit {
+        margin: 8px 0;
+    }
+}
+
 .admin__button {
     width: 90px;
     height: 40px;
-    margin: 20px 0;
+    margin: 20px auto;
     border: none;
     border-radius: 2px;
     background-color: #f55;
     font-size: 16px;
     color: #fff;
     cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .admin__button {
+        margin: 20px auto 40px;
+    }
 }
 
 .admin__comment-block {

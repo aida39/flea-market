@@ -530,7 +530,7 @@
 }
 
 @media screen and (max-width: 768px) {
-    .profile-link,.image-button {
+    .profile-link, .image-button {
         width: 165px;
         font-size: 16px;
     }

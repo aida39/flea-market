@@ -15,18 +15,18 @@
     <header class="header">
         <div>
             <a href="/admin/index">
-                <img class="header__logo" src="{{asset('images/logo.svg')}}" alt="logo">
+                <img class="header__logo" src="{{ asset('images/logo.svg') }}" alt="logo">
             </a>
         </div>
         @if (Auth::guard('admin')->check())
-        <ul class="header__link">
-            <li class="header__link-item">
-                <a href="/admin/logout">ログアウト</a>
-            </li>
-            <li class="header__link-item">
-                <a href="/admin/mail">メール送信</a>
-            </li>
-        </ul>
+            <ul class="header__link">
+                <li class="header__link-item">
+                    <a href="/admin/logout">ログアウト</a>
+                </li>
+                <li class="header__link-item">
+                    <a href="/admin/mail">メール送信</a>
+                </li>
+            </ul>
         @else
         @endif
     </header>
