@@ -63,7 +63,7 @@
                 @if($shipping_address && $selected_payment_type && $selected_payment_type['name']==='クレジットカード')
                 <button class="form__button" type="button" onclick="openStripeCheckout()">購入する</button>
                 @elseif($shipping_address && $selected_payment_type)
-                <button class="form__button" type="submit">購入する</button>
+                <button class="form__button" type="submit" onclick="confirmAction(event, 'この商品を購入しますか？');">購入する</button>
                 @else
                 <p class="button-style--disabled">購入する</p>
                 @endif
@@ -77,4 +77,5 @@
 </script>
 <script src="{{ asset('js/stripe-payment.js') }}"></script>
 <script src="{{ asset('js/payment-select.js') }}"></script>
+<script src="{{ asset('js/confirmation-window.js') }}"></script>
 @endsection

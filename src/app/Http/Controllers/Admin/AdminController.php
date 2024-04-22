@@ -12,20 +12,16 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        $display = $request->input('display');
 
         $users = [];
         $items = [];
         $comments = [];
 
-        if ($display === 'comments_by_item' || $display === null) {
-            $items = Item::with('comments')->get();
-        } elseif ($display === 'comments_by_user') {
-            $users = User::with('comments')->get();
-        } elseif ($display === 'user_list') {
-            $users = User::with('profile')->get();
-        }
-        return view('admin.index', compact('users', 'items', 'comments', 'display'));
+        $items = Item::with('comments')->get();
+
+        $users = User::with('comments','profile')->get();
+
+        return view('admin.index', compact('users', 'items', 'comments'));
     }
 
     public function deleteComment(Request $request, $id)
