@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use App\Models\Comment;
+use App\Models\Condition;
 use App\Models\Item;
 use App\Models\User;
 
@@ -14,26 +15,25 @@ class CommentTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $user;
+    protected $item;
+
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->seed(\Database\Seeders\UsersTableSeeder::class);
-
-        // $user = User::first();
-        $user = User::factory()->create();
-        $this->actingAs($user);
+        $this->user = User::factory()->create();
+        $this->actingAs($this->user);
 
         $this->seed(\Database\Seeders\ConditionsTableSeeder::class);
+        $this->item = Item::factory()->create();
 
     }
 
     public function test_comment_page()
     {
-        $item = Item::factory()->create();
-        $comments = Comment::factory(3)->create(['item_id' => $item->id]);
+        $comments = Comment::factory(3)->create(['item_id' => $this->item->id]);
 
-        $response = $this->get("/comment/{$item->id}");
+        $response = $this->get("/comment/{$this->item->id}");
 
         $response->assertStatus(200)
             ->assertViewHas('comments', $comments);
@@ -41,28 +41,25 @@ class CommentTest extends TestCase
 
     public function test_store_comment()
     {
-        $user = User::first();
-        $item = Item::factory()->create(['user_id' => $user->id, 'condition_id' => '1']);
         $comment_data = ['comment' => 'テストコメント'];
 
-        $response = $this->post("/comment/{$item->id}", $comment_data);
+        $response = $this->post("/comment/{$this->item->id}", $comment_data);
 
         $this->assertDatabaseHas('comments', [
             'comment' => 'テストコメント',
-            'user_id' => $user->id,
-            'item_id' => $item->id,
+            'user_id' => $this->user->id,
+            'item_id' => $this->item->id,
         ]);
-        $response->assertRedirect("/comment/{$item->id}");
+        $response->assertRedirect("/comment/{$this->item->id}");
     }
 
     public function test_delete_comment()
     {
-        $item = Item::factory()->create();
-        $comment = Comment::factory()->create(['item_id' => $item->id]);
+        $comment = Comment::factory()->create();
 
         $response = $this->post("/comment/delete/{$comment->item_id}", ['comment_id' => $comment->id]);
 
-        $this->assertSoftDeleted('comments', ['id' => $comment->id]);
+        $this->assertModelMissing($comment);
         $response->assertRedirect();
     }
 }

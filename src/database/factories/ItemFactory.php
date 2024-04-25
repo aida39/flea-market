@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
+use App\Models\Condition;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Item>
@@ -16,9 +18,12 @@ class ItemFactory extends Factory
      */
     public function definition()
     {
+        $user = User::inRandomOrder()->first();
+        $condition = Condition::inRandomOrder()->first();
+
         return [
-            'user_id' => '',
-            'condition_id' => '',
+            'user_id' => $user->id,
+            'condition_id' => $condition->id,
             'name' => $this->faker->word(),
             'brand' => $this->faker->word(),
             'description' => $this->faker->sentence(),
