@@ -53,6 +53,7 @@ class AuthTest extends TestCase
 
         $response->assertRedirect('/');
         $this->assertAuthenticatedAs($user, 'web');
+        $response->assertStatus(302);
     }
 
     public function test_user_logout()
@@ -64,5 +65,6 @@ class AuthTest extends TestCase
 
         $response->assertRedirect('/');
         $this->assertGuest();
+        $response->assertStatus(302);
     }
 }

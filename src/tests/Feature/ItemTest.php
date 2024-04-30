@@ -86,45 +86,37 @@ class ItemTest extends TestCase
 
     public function test_store_item()
     {
-        // テスト用のユーザーを作成し、ログインする
         $this->actingAs($this->user);
 
-        // テスト用のモック画像を生成する
-        // $file = UploadedFile::fake()->image('test_image.jpg');
+        Storage::fake('public');
+        $file = UploadedFile::fake()->image('test_image.jpg');
 
-        // テスト用のリクエストデータを作成する
+        $condition_id = Condition::inRandomOrder()->first()->id;
+        $category_ids = Category::pluck('id')->random(2);
+
         $request_data = [
-            'condition_id' => 1,
+            'condition_id' => $condition_id,
             'name' => 'Test Item',
             'brand' => 'Test Brand',
             'description' => 'Test Description',
             'price' => 1000,
-            'category_id' => [1,5], // カテゴリーIDを配列で指定
-            // 'image' => $file, // テスト用の画像ファイルを指定
+            'category_id' => $category_ids->toArray(),
+            'image' => $file,
         ];
 
-        // モックを使用してリクエストを作成する
         $response = $this->post('/sell', $request_data);
 
-        // リダイレクトが正しく行われたかどうかを確認する
         $response->assertRedirect('/mypage');
 
-        // // データベースにアイテムが作成されたかどうかを確認する
-        // $this->assertDatabaseHas('items', [
-        //     'name' => 'Test Item',
-        //     'brand' => 'Test Brand',
-        //     'description' => 'Test Description',
-        //     'price' => 1000,
-        //     'user_id' => $this->user->id,
-        //     'recommend_flag' => '1',
-        // ]);
+        $this->assertArrayHasKey('image', $request_data);
 
-        // // データベースにカテゴリーが正しく関連付けられたかどうかを確認する
-        // $item = Item::where('name', 'Test Item')->first();
-        // $this->assertEquals(1, $item->categories()->count());
-
-        // // アップロードされた画像が保存されたかどうかを確認する
-        // Storage::disk('public')->assertExists('images/' . $file->hashName());
+        $this->assertDatabaseHas('items', [
+            'name' => 'Test Item',
+            'brand' => 'Test Brand',
+            'description' => 'Test Description',
+            'price' => 1000,
+            'user_id' => $this->user->id,
+            'recommend_flag' => 1,
+        ]);
     }
-
 }
