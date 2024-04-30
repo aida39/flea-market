@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-// use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Item;
 use App\Models\User;
@@ -11,7 +10,6 @@ use App\Models\Comment;
 use App\Models\Favorite;
 use App\Models\Condition;
 use App\Models\Category;
-use App\Models\ItemCategory;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
 
