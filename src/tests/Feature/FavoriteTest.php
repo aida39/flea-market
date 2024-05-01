@@ -29,6 +29,7 @@ class FavoriteTest extends TestCase
         $response = $this->patch("/favorite/{$this->item->id}");
 
         $this->assertTrue($this->item->fresh()->favorite()->where('user_id', $this->user->id)->exists());
+        $this->assertAuthenticatedAs($this->user, 'web');
     }
 
     public function test_delete_favorite()
@@ -38,5 +39,6 @@ class FavoriteTest extends TestCase
         $response = $this->patch("/favorite/{$this->item->id}");
 
         $this->assertFalse($this->item->fresh()->favorite()->where('user_id', $this->user->id)->exists());
+        $this->assertAuthenticatedAs($this->user, 'web');
     }
 }

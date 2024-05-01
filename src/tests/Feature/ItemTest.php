@@ -80,6 +80,8 @@ class ItemTest extends TestCase
         $response->assertStatus(200)
             ->assertViewHas('categories', $categories)
             ->assertViewHas('conditions', $conditions);
+
+        $this->assertAuthenticatedAs($this->user, 'web');
     }
 
     public function test_store_item()
@@ -116,5 +118,7 @@ class ItemTest extends TestCase
             'user_id' => $this->user->id,
             'recommend_flag' => 1,
         ]);
+
+        $this->assertAuthenticatedAs($this->user, 'web');
     }
 }

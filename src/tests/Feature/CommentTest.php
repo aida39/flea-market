@@ -51,6 +51,7 @@ class CommentTest extends TestCase
             'item_id' => $this->item->id,
         ]);
         $response->assertRedirect("/comment/{$this->item->id}");
+        $this->assertAuthenticatedAs($this->user, 'web');
     }
 
     public function test_delete_comment()
@@ -61,5 +62,6 @@ class CommentTest extends TestCase
 
         $this->assertModelMissing($comment);
         $response->assertRedirect();
+        $this->assertAuthenticatedAs($this->user, 'web');
     }
 }

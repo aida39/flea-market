@@ -71,7 +71,6 @@ class OrderTest extends TestCase
             'shipping_address_id' => 2,
         ]);
         $this->assertAuthenticatedAs($this->user, 'web');
-
     }
 
     public function test_address_form()
