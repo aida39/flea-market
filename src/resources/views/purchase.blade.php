@@ -76,6 +76,5 @@
     var stripeKey = "{{ env('STRIPE_KEY') }}";
 </script>
 <script src="{{ asset('js/stripe-payment.js') }}"></script>
-<script src="{{ asset('js/payment-select.js') }}"></script>
 <script src="{{ asset('js/confirmation-window.js') }}"></script>
 @endsection

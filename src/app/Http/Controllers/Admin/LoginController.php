@@ -16,7 +16,9 @@ class LoginController extends Controller
 
     public function postLogin(LoginRequest $request)
     {
-        if (Auth::guard('admin')->attempt($request->only('email', 'password'))) {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::guard('admin')->attempt($credentials)) {
             return redirect()->intended('/admin/index')->with('result', 'ログインしました');
         } else {
             return redirect('/admin/login')->with('result', 'メールアドレスまたはパスワードが違います');

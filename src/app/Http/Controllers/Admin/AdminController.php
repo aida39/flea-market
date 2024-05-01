@@ -12,26 +12,20 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-
-        $users = [];
-        $items = [];
-        $comments = [];
-
         $items = Item::with('comments')->get();
+        $users = User::with('comments', 'profile')->get();
 
-        $users = User::with('comments','profile')->get();
-
-        return view('admin.index', compact('users', 'items', 'comments'));
+        return view('admin.index', compact('users', 'items'));
     }
 
-    public function deleteComment(Request $request, $id)
+    public function deleteComment(Request $request)
     {
         Comment::find($request->comment_id)->delete();
 
         return redirect()->back();
     }
 
-    public function deleteUser(Request $request, $id)
+    public function deleteUser(Request $request)
     {
         User::find($request->user_id)->delete();
 

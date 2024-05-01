@@ -18,6 +18,7 @@ class MailController extends Controller
     public function sendMail(SendMailRequest $request)
     {
         $data = $request->all();
+
         $emails = User::pluck('email')->all();
         foreach ($emails as $email) {
             Mail::to($email)->send(new AdminMail($data['mail_subject'], $data['mail_message']));
