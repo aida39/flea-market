@@ -32,13 +32,16 @@ class CommentController extends Controller
 
     public function storeComment(CommentRequest $request, $id)
     {
-        $comment_data = array_merge($request->only('comment'), ['user_id' => Auth::id(), 'item_id' => $id]);
+        $comment_data = $request->only('comment');
+        $comment_data['user_id'] = Auth::id();
+        $comment_data['item_id'] = $id;
+
         Comment::create($comment_data);
 
         return redirect('/comment/' . $id);
     }
 
-    public function deleteComment(Request $request, $id)
+    public function deleteComment(Request $request)
     {
         Comment::find($request->comment_id)->delete();
 

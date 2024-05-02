@@ -15,24 +15,27 @@ use Stripe\Charge;
 
 class OrderController extends Controller
 {
-    public function showPurchasePage($id)
+    private function getShippingAddress()
     {
-        $item = Item::findOrFail($id);
         $shipping_address = session('shipping_address');
-        $selected_payment_type = session('selected_payment_type');
 
-        if ($shipping_address) {
-            return view('purchase', compact('item','shipping_address','selected_payment_type'));
-        } else {
+        if (!$shipping_address) {
             $user = Auth::user();
 
             if ($user->profile) {
                 $shipping_address = $user->profile;
-                return view('purchase', compact('item','shipping_address','selected_payment_type'));
-            } else {
-                return view('purchase', compact('item','shipping_address','selected_payment_type'));
             }
         }
+        return $shipping_address;
+    }
+
+    public function showPurchasePage($id)
+    {
+        $item = Item::findOrFail($id);
+        $shipping_address = $this->getShippingAddress();
+        $selected_payment_type = session('selected_payment_type');
+
+        return view('purchase', compact('item', 'shipping_address', 'selected_payment_type'));
     }
 
     public function submitPurchase(Request $request, $id)
@@ -40,7 +43,7 @@ class OrderController extends Controller
         $item = Item::findOrFail($id);
         $user = Auth::user();
 
-        $shipping_address = session('shipping_address') ?? ($user->profile->only(['postal_code', 'address', 'building']));
+        $shipping_address = $this->getShippingAddress();
         $shipping_address_record = ShippingAddress::create(array_merge($shipping_address, ['user_id' => $user->id]));
 
         $payment_type = request()->input('payment_type');
@@ -66,34 +69,18 @@ class OrderController extends Controller
         return redirect('/')->with('result', '購入処理が完了しました');
     }
 
-
     public function showAddressForm($id)
     {
         $user = Auth::user();
         $profile = $user->profile;
+        $shipping_address = $this->getShippingAddress();
 
-        $shipping_address = session('shipping_address');
-
-        if ($shipping_address) {
-            return view('address', compact('profile', 'id', 'shipping_address'));
-        } else {
-            if ($profile && $profile->address) {
-                $shipping_address = [
-                    'postal_code' => $profile->postal_code,
-                    'address' => $profile->address,
-                    'building' => $profile->building,
-                ];
-                return view('address', compact('profile', 'id', 'shipping_address'));
-            } else {
-                return view('address', compact('profile', 'id', 'shipping_address'));
-            }
-        }
+        return view('address', compact('profile', 'id', 'shipping_address'));
     }
 
     public function storeAddress(AddressRequest $request, $id)
     {
         $address = $request->only(['postal_code', 'address', 'building']);
-
         $request->session()->put('shipping_address', $address);
 
         return redirect('/purchase/' . $id);
@@ -104,11 +91,7 @@ class OrderController extends Controller
         $payment_types = PaymentType::all();
         $selected_payment_type = session('selected_payment_type');
 
-        if ($selected_payment_type) {
-            return view('payment', compact('id', 'payment_types', 'selected_payment_type'));
-        } else {
-            return view('payment', compact('id', 'payment_types',));
-        }
+        return view('payment', compact('id', 'payment_types', 'selected_payment_type'));
     }
 
     public function storePayment(PaymentRequest $request, $id)
@@ -120,5 +103,4 @@ class OrderController extends Controller
 
         return redirect('/purchase/' . $id);
     }
-
 }

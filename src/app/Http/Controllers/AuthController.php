@@ -36,7 +36,9 @@ class AuthController extends Controller
 
     public function postLogin(LoginRequest $request)
     {
-        if (Auth::attempt($request->only('email', 'password'))) {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
             return redirect()->intended('/')->with('result', 'ログインしました');
         } else {
             return redirect('/login')->with('result', 'メールアドレスまたはパスワードが違います');

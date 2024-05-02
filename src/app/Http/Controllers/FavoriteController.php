@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 
 class FavoriteController extends Controller
 {
-    public function switchFavoriteStatus(Request $request, $id)
+    public function switchFavoriteStatus($id)
     {
         $user_id = Auth::id();
         $item = Item::findOrFail($id);
 
-        $item->favorite()->where('user_id', $user_id)->exists()
-            ? $item->favorite()->where('user_id', $user_id)->delete()
+        $favorite = $item->favorite()->where('user_id', $user_id);
+
+        $favorite->exists()
+            ? $favorite->delete()
             : $item->favorite()->create(['user_id' => $user_id]);
 
         return redirect()->back();

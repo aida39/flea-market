@@ -28,10 +28,8 @@ class ItemController extends Controller
         $categories = $item->categories;
 
         $comment_count = Comment::where('item_id', $id)->count();
-
         $favorite_count = Favorite::where('item_id', $id)->count();
         $is_favorite = $item->favorite->contains('user_id', Auth::id());
-
         $is_available = $item->order ? false : true;
 
         return view('item', compact('item', 'categories', 'comment_count', 'favorite_count', 'is_favorite', 'is_available'));
