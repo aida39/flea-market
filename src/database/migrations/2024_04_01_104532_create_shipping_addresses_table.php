@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('shipping_addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('postal_code', 255);
+            $table->string('postal_code', 7);
             $table->string('address', 255);
             $table->string('building', 255)->nullable();
             $table->timestamps();

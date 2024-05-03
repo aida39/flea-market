@@ -1,5 +1,4 @@
 function openStripeCheckout() {
-
     var amount = document.getElementById("amount").value;
 
     var handler = StripeCheckout.configure({
@@ -9,16 +8,16 @@ function openStripeCheckout() {
         currency: "JPY",
         name: "Stripe決済デモ",
         description: "これはデモ決済です",
-        token: function(token) {
-            var form = document.getElementById('purchaseForm');
-            var hiddenInput = document.createElement('input');
-            hiddenInput.setAttribute('type', 'hidden');
-            hiddenInput.setAttribute('name', 'stripeToken');
-            hiddenInput.setAttribute('value', token.id);
+        token: function (token) {
+            var form = document.getElementById("purchaseForm");
+            var hiddenInput = document.createElement("input");
+            hiddenInput.setAttribute("type", "hidden");
+            hiddenInput.setAttribute("name", "stripeToken");
+            hiddenInput.setAttribute("value", token.id);
             form.appendChild(hiddenInput);
 
             form.submit();
-        }
+        },
     });
 
     handler.open({

@@ -34,5 +34,5 @@
             <button class="form__button" type="submit" onclick="confirmAction(event, 'このメールを送信しますか？');">メールを送信する</button>
         </form>
     </div>
-<script src="{{ asset('js/confirmation-window.js') }}"></script>
+    <script src="{{ asset('js/confirmation-window.js') }}"></script>
 @endsection

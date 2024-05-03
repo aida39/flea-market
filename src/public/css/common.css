@@ -187,7 +187,6 @@
     color: #ff0000;
 }
 
-
 .tab-content__item {
     display: none;
 }
@@ -238,7 +237,6 @@
         width: 100%;
         margin: 20px auto;
     }
-
 }
 
 .left-container.ratio4-3 {
@@ -307,7 +305,6 @@
     .category:first-of-type {
         margin: 20px 0 0 0;
     }
-
 }
 
 .brand {
@@ -431,9 +428,7 @@
         flex-direction: column;
         align-items: flex-start;
     }
-
 }
-
 
 .subsection-heading {
     display: inline-block;
@@ -447,7 +442,6 @@
     .subsection-text {
         margin: 20px 0 0 0;
     }
-
 }
 
 .user-area {
@@ -511,8 +505,6 @@
     color: #f55;
     cursor: pointer;
 }
-
-
 
 .image-button {
     width: 200px;

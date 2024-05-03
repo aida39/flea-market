@@ -36,6 +36,7 @@ class LoginRequest extends FormRequest
             'email.string' => 'メールアドレスを文字列で入力してください',
             'email.email' => '有効なメールアドレス形式を入力してください',
             'email.max' => 'メールアドレスを255文字以下で入力してください',
+
             'password.required' => 'パスワードを入力してください',
             'password.min' => 'パスワードを8文字以上で入力してください',
             'password.max' => 'パスワードを255文字以下で入力してください',

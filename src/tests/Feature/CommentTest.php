@@ -3,11 +3,8 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use App\Models\Comment;
-use App\Models\Condition;
 use App\Models\Item;
 use App\Models\User;
 

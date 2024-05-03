@@ -9,7 +9,6 @@
     align-items: center;
 }
 
-
 @media screen and (max-width: 768px) {
     .admin__container {
         width: 300px;
@@ -46,7 +45,6 @@
 .admin__comment-block {
     margin-bottom: 40px;
 }
-
 
 .admin__label {
     margin-right: 16px;

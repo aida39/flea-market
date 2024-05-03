@@ -55,7 +55,6 @@ class ItemController extends Controller
 
     public function storeItem(SellRequest $request)
     {
-
         $request->file('image')->store('public/images');
         $image_path = 'storage/images/' . $request->file('image')->hashName();
 
