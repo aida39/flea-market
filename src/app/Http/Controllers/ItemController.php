@@ -10,6 +10,7 @@ use App\Models\Favorite;
 use App\Models\Condition;
 use App\Models\Category;
 use App\Http\Requests\SellRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ItemController extends Controller
 {
@@ -55,8 +56,12 @@ class ItemController extends Controller
 
     public function storeItem(SellRequest $request)
     {
-        $request->file('image')->store('public/images');
-        $image_path = 'storage/images/' . $request->file('image')->hashName();
+        $directory = env('APP_ENV') === 'production'
+            ? env('PROD_IMAGE_DIRECTORY')
+            : env('DEV_IMAGE_DIRECTORY');
+        $file = Storage::disk('s3')->put($directory, $request->file('image'));
+
+        $image_path = Storage::disk('s3')->url($file);
 
         $item_data = array_merge($request->only('condition_id', 'name', 'brand', 'description', 'price'), ['user_id' => Auth::id(), 'image_path' => $image_path, 'recommend_flag' => '1']);
 

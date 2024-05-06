@@ -23,7 +23,7 @@ class OrderController extends Controller
             $user = Auth::user();
 
             if ($user->profile) {
-                $shipping_address = $user->profile;
+                $shipping_address = $user->profile->toArray();
             }
         }
         return $shipping_address;
