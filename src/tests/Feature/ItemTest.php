@@ -88,8 +88,10 @@ class ItemTest extends TestCase
     {
         $this->actingAs($this->user);
 
-        Storage::fake('public');
-        $file = UploadedFile::fake()->image('test_image.jpg');
+        Storage::fake('s3');
+        $file = UploadedFile::fake()->create('test_image.jpg');
+
+        Storage::disk('s3')->put('development/image/test_image.jpg', file_get_contents($file));
 
         $condition_id = Condition::inRandomOrder()->first()->id;
         $category_ids = Category::pluck('id')->random(2);
