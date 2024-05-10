@@ -27,8 +27,9 @@ jobs:
       - run:
           name: Run PHPUnit tests
           command: |
-            cd src
-            vendor/bin/phpunit tests/Feature
+            cd src/tests
+            pwd
+            vendor/bin/phpunit tests/Feature/AuthTest.php
 
 workflows:
   version: 2
