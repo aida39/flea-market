@@ -28,7 +28,7 @@ jobs:
           name: Run PHPUnit tests
           command: |
             cd src
-            php artisan test tests/Feature
+            vendor/bin/phpunit tests/Feature
 
 workflows:
   version: 2
