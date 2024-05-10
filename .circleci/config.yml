@@ -27,9 +27,12 @@ jobs:
       - run:
           name: Run PHPUnit tests
           command: |
-            cd src/tests
+            cd src/tests/Feature
             pwd
-            vendor/bin/phpunit tests/Feature/ItemTest.php
+            ls
+            cd ../../
+            pwd
+            php artisan test --testsuite Feature
 
 workflows:
   version: 2
