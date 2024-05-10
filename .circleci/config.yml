@@ -27,6 +27,7 @@ jobs:
       - run:
           name: Run PHPUnit tests
           command: |
+            composer install
             cd src/tests/Feature
             pwd
             ls
