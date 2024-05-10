@@ -26,7 +26,8 @@ jobs:
       # テストの実行
       - run:
           name: Run PHPUnit tests
-          command: php artisan test tests/Feature
+          command: |
+            php artisan test tests/Feature
 
 workflows:
   version: 2
