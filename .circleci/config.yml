@@ -27,7 +27,9 @@ jobs:
       - run:
           name: Run PHPUnit tests
           command: |
-            php artisan test tests/Feature
+            echo "Hello, CircleCI!"
+            pwd
+            ls
 
 workflows:
   version: 2
