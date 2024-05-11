@@ -23,14 +23,19 @@ jobs:
             mv composer.phar /usr/local/bin/composer
             composer self-update
 
+      # マイグレーションとシーディングの実行
+      - run:
+          name: Run migrations and seeders
+          command: |
+            cd src
+            php artisan migrate:fresh --seed
+
       # テストの実行
       - run:
           name: Run PHPUnit tests
           command: |
             cd src
             composer install
-            pwd
-            ls
             php artisan test --testsuite Feature
 
 workflows:
