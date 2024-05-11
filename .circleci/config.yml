@@ -27,6 +27,7 @@ jobs:
       - run:
           name: Create .env file
           command: |
+            cd src
             echo "DB_CONNECTION=mysql" >> .env
             echo "DB_HOST=mysql" >> .env
             echo "DB_PORT=3306" >> .env
