@@ -33,6 +33,7 @@ jobs:
             echo "DB_DATABASE=laravel_db" >> src/.env
             echo "DB_USERNAME=laravel_user" >> src/.env
             echo "DB_PASSWORD=laravel_pass" >> src/.env
+            ls -l src/.env
 
       # マイグレーションとシーディングの実行
       - run:
