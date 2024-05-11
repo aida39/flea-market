@@ -23,6 +23,17 @@ jobs:
             mv composer.phar /usr/local/bin/composer
             composer self-update
 
+# .envファイルの作成
+      - run:
+          name: Create .env file
+          command: |
+            echo "DB_CONNECTION=mysql" >> .env
+            echo "DB_HOST=mysql" >> .env
+            echo "DB_PORT=3306" >> .env
+            echo "DB_DATABASE=laravel_db" >> .env
+            echo "DB_USERNAME=laravel_user" >> .env
+            echo "DB_PASSWORD=laravel_pass" >> .env
+
       # マイグレーションとシーディングの実行
       - run:
           name: Run migrations and seeders
