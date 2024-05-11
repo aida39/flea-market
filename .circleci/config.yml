@@ -27,13 +27,12 @@ jobs:
       - run:
           name: Create .env file
           command: |
-            cd src
-            echo "DB_CONNECTION=mysql" >> .env
-            echo "DB_HOST=mysql" >> .env
-            echo "DB_PORT=3306" >> .env
-            echo "DB_DATABASE=laravel_db" >> .env
-            echo "DB_USERNAME=laravel_user" >> .env
-            echo "DB_PASSWORD=laravel_pass" >> .env
+            echo "DB_CONNECTION=mysql" >> src/.env
+            echo "DB_HOST=mysql" >> src/.env
+            echo "DB_PORT=3306" >> src/.env
+            echo "DB_DATABASE=laravel_db" >> src/.env
+            echo "DB_USERNAME=laravel_user" >> src/.env
+            echo "DB_PASSWORD=laravel_pass" >> src/.env
 
       # マイグレーションとシーディングの実行
       - run:
