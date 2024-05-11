@@ -47,7 +47,7 @@ jobs:
           name: Create .env file
           command: |
             echo "DB_CONNECTION=mysql" >> src/.env
-            echo "DB_HOST=mysql" >> src/.env
+            echo "DB_HOST=127.0.0.1" >> src/.env
             echo "DB_PORT=3306" >> src/.env
             echo "DB_DATABASE=laravel_db" >> src/.env
             echo "DB_USERNAME=laravel_user" >> src/.env
