@@ -26,9 +26,8 @@ jobs:
       - image: mysql:8.0.26
         environment:
           MYSQL_ROOT_PASSWORD: root
+          MYSQL_CONF: /etc/mysql/my.cnf:/etc/mysql/my.cnf
         command: --default-authentication-plugin=mysql_native_password
-        volumes:
-          - ./my.cnf:/etc/mysql/my.cnf
 
     steps:
       - checkout
