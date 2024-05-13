@@ -8,7 +8,7 @@ coachtechブランドのアイテムを出品するため
 ## アプリケーションURL
 ### 開発環境
 - ユーザー用ページ http://localhost/
-- 管理者用ページ http://localhost/admin/index：：：未作成
+- 管理者用ページ http://localhost/admin/index
 
 ### 本番環境
 - ユーザー用ページ http://43.207.115.202/：：：未作成
@@ -18,7 +18,7 @@ coachtechブランドのアイテムを出品するため
 確認用のアカウントを用意していますので、下記のアカウントを使用してログインしてください。  
 アカウントはユーザーと管理者の2種類です。  
 - ユーザー メールアドレス：user01@example.com~user05@example.com
-- 管理者 メールアドレス：admin@example.com  ：：：未作成
+- 管理者 メールアドレス：admin@example.com
 - パスワード（全アカウント共通）：coachtech
 
 ## 他のリポジトリ
@@ -44,19 +44,22 @@ coachtechブランドのアイテムを出品するため
 - MySQL 8.0.26
 
 ## テーブル設計
-![table_design](src/table_design.jpeg)：：：未作成
+![table_design](src/table_design.jpg)
 
 ## ER図
-![frea-market_ER-Diagram](src/frea-market.drawio.jpeg)：：：未作成
+![frea-market_ER-Diagram](src/frea-market.drawio.jpg)
 
-## 環境構築：：：未完成
+## 環境構築
 
  1. ```docker-compose up -d --build```
  2. ```docker-compose exec php bash```
  3. ```composer install```
  4. .env.exampleファイルから.envを作成し、環境変数を変更  
 DB_CONNECTIONからDB_PASSWORD、MAIL_MAILERからMAIL_FROM_NAMEの項目を修正  
-STRIPE_KEYとSTRIPE_SECRETの項目を追加
+STRIPE_KEYとSTRIPE_SECRETの項目を追加  
+IMAGE_DIRECTORYの項目を以下のように追加  
+DEV_IMAGE_DIRECTORY=development/image  
+PROD_IMAGE_DIRECTORY=production/image  
  5. ```php artisan key:generate```
  6. ```php artisan migrate --seed```
 アカウント、商品、注文データとその関連データが挿入されます
@@ -68,4 +71,8 @@ STRIPE_KEYとSTRIPE_SECRETの項目を追加
 Mailtrapを使用する場合はサービスの登録と.envファイルの編集が必要です。
 
 決済機能としてstripeを設定しています。  
-使用にはサービスの登録と.envファイルの記述が必要です。
+使用にはサービスの登録と.envファイルの記述が必要です。  
+
+### テストの実行について
+```php artisan test --testsuite Feature```でPHPUnitによるテストが可能です。  
+実行にはテスト用データベースと.env.testingの作成が必要です。
