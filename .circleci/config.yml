@@ -1,22 +1,83 @@
 version: 2.1
 
+services:
+  mysql:
+    image: mysql:8.0.26
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel_db
+      MYSQL_USER: laravel_user
+      MYSQL_PASSWORD: laravel_pass
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"  # ホストマシンからMySQLにアクセスできるようにポートをマッピング
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -proot"]
+      retries: 5
+      interval: 10s
+
 jobs:
   build:
     docker:
-      - image: circleci/php:7.3-node-browsers
+      - image: php:8.1-fpm
+      - image: mysql:8.0.26
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_CONF: /etc/mysql/my.cnf:/etc/mysql/my.cnf
+        command: --default-authentication-plugin=mysql_native_password
+
     steps:
       - checkout
-      - run: sudo apt-get update && sudo apt-get install -y libpng-dev
-      - run: docker-php-ext-install gd
-      - run: composer install --prefer-dist --no-ansi --no-interaction --no-progress
-      - run: cp .env.example .env
-      - run: php artisan key:generate
-      - run: php artisan migrate --force
-      - run: vendor/bin/phpunit
+
+      # PHP拡張機能のインストール
+      - run:
+          name: Install PHP extensions and dependencies
+          command: |
+            apt update && apt install -y default-mysql-client zlib1g-dev libzip-dev unzip libpng-dev libjpeg-dev
+            docker-php-ext-configure gd --with-jpeg
+            docker-php-ext-install pdo_mysql zip gd
+
+      # Composerのインストール
+      - run:
+          name: Install Composer
+          command: |
+            curl -sS https://getcomposer.org/installer | php
+            mv composer.phar /usr/local/bin/composer
+            composer self-update
+
+# .envファイルの作成
+      - run:
+          name: Create .env file
+          command: |
+            echo "DB_CONNECTION=mysql" >> src/.env
+            echo "DB_HOST=127.0.0.1" >> src/.env
+            echo "DB_PORT=3306" >> src/.env
+            echo "DB_DATABASE=laravel_db" >> src/.env
+            echo "DB_USERNAME=laravel_user" >> src/.env
+            echo "DB_PASSWORD=laravel_pass" >> src/.env
+            ls -l src/.env
+            cat src/.env
+
+      # マイグレーションとシーディングの実行
+      - run:
+          name: Run migrations and seeders
+          command: |
+            cd src
+            composer install
+            php artisan migrate:fresh --seed  --force
+
+      # テストの実行
+      - run:
+          name: Run PHPUnit tests
+          command: |
+            cd src
+            php artisan test --testsuite Feature
 
 workflows:
   version: 2
   build:
     jobs:
       - build
-
