@@ -2,7 +2,6 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: ~/project/src
     docker:
       - image: php:8.1-fpm
       - image: mysql:8.0.26
@@ -13,6 +12,12 @@ jobs:
 
     steps:
       - checkout
+
+      - run:
+          name: docker-compose up
+          command: |
+            cd src
+            docker-compose up -d --build
 
       # PHP拡張機能のインストール
       - run:
@@ -33,7 +38,7 @@ jobs:
           name: Create .env file
           command: |
             echo "DB_CONNECTION=mysql" >> src/.env
-            echo "DB_HOST=127.0.0.1" >> src/.env
+            echo "DB_HOST=mysql" >> src/.env
             echo "DB_PORT=3306" >> src/.env
             echo "DB_DATABASE=laravel_db" >> src/.env
             echo "DB_USERNAME=laravel_user" >> src/.env
@@ -44,12 +49,14 @@ jobs:
       - run:
           name: Run migrations and seeders
           command: |
+            cd src
             composer install
             php artisan migrate:fresh --seed  --force
       # テストの実行
       - run:
           name: Run PHPUnit tests
           command: |
+            cd src
             php artisan test --testsuite Feature
 workflows:
   version: 2
