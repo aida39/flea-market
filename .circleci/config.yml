@@ -1,37 +1,48 @@
 version: 2.1
-
 jobs:
-  build:
+  build_and_test:
+    working_directory: ~/project/src
     docker:
-      - image: cimg/php:8.1
-      - image: circleci/mysql:8.0
+      - image: cimg/php:7.3.20-node
+      - image: circleci/mysql:5.7
         environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: laravel_db
-            MYSQL_USER: laravel_user
-            MYSQL_PASSWORD: laravel_pass
-        command: --default-authentication-plugin=mysql_native_password
+          MYSQL_DATABASE: laravel_db
+          MYSQL_USER: laravel_user
+          MYSQL_PASSWORD: laravel_pass
 
     steps:
-      - checkout
+      - checkout:
+          path: ~/project
 
-      # PHP拡張機能のインストール
+      - restore_cache:
+          keys:
+            - composer-v1-{{ checksum "composer.lock" }}
+            - composer-v1-
+
       - run:
-          name: Install PHP extensions and dependencies
-          command: |
-            apt update && apt install -y default-mysql-client zlib1g-dev libzip-dev unzip libpng-dev libjpeg-dev
-            docker-php-ext-configure gd --with-jpeg
-            docker-php-ext-install pdo_mysql zip gd
+          name: composer依存関係をインストール
+          command: composer install -n --prefer-dist
 
-      # Composerのインストール
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
+
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "package-lock.json" }}
+            - node-v1-
+
       - run:
-          name: Install Composer
-          command: |
-            curl -sS https://getcomposer.org/installer | php
-            mv composer.phar /usr/local/bin/composer
-            composer self-update
+          name: node_modules依存関係をインストール
+          command: npm install
 
-# .envファイルの作成
+      - save_cache:
+          key: node-v1-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
+      # .envファイルの作成
       - run:
           name: Create .env file
           command: |
@@ -44,23 +55,28 @@ jobs:
             ls -l src/.env
             cat src/.env
 
-      # マイグレーションとシーディングの実行
       - run:
-          name: Run migrations and seeders
-          command: |
-            cd src
-            composer install
-            php artisan migrate --env=testing --seed  --force
+          name: マイグレーションを実行
+          command: php artisan migrate --env=testing --seed  --force
+
+      - run: mkdir -p test_results
 
       # テストの実行
       - run:
           name: Run PHPUnit tests
           command: |
-            cd src
             php artisan test --testsuite Feature
 
+      - store_test_results:
+          path: test_results
+
+      - store_artifacts:
+          path: test_results
+
+      - store_artifacts:
+          path: coverage
+
 workflows:
-  version: 2
-  build:
+  main:
     jobs:
-      - build
+      - build_and_test
