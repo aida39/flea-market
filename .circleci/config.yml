@@ -1,18 +1,19 @@
 version: 2.1
+
 jobs:
-  build_and_test:
+  build:
     working_directory: ~/project/src
     docker:
       - image: cimg/php:8.1
-      - image: cimg/mysql:8.0.27
-        environment:
+      - image: mysql:8.0.26
+          MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: laravel_db
           MYSQL_USER: laravel_user
           MYSQL_PASSWORD: laravel_pass
+        command: --default-authentication-plugin=mysql_native_password
 
     steps:
-      - checkout:
-          path: ~/project
+      - checkout
 
       # PHP拡張機能のインストール
       - run:
@@ -23,66 +24,52 @@ jobs:
             docker-php-ext-install pdo_mysql zip gd
 
       - run:
-          name: composer依存関係をインストール
+          name: Install Composer
           command: |
             curl -sS https://getcomposer.org/installer | php
             mv composer.phar /usr/local/bin/composer
             composer self-update
 
-      - save_cache:
-          key: composer-v1-{{ checksum "composer.lock" }}
-          paths:
-            - vendor
-
-      - restore_cache:
-          keys:
-            - node-v1-{{ checksum "package-lock.json" }}
-            - node-v1-
+      - run:
+          name: Install project dependencies
+          command: composer install
 
       - run:
-          name: node_modules依存関係をインストール
+          name: Install Node.js dependencies
           command: npm install
 
-      - save_cache:
-          key: node-v1-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
-
-      # .envファイルの作成
+# .envファイルの作成
       - run:
           name: Create .env file
           command: |
-            echo "DB_CONNECTION=mysql" >> src/.env
-            echo "DB_HOST=127.0.0.1" >> src/.env
-            echo "DB_PORT=3306" >> src/.env
-            echo "DB_DATABASE=laravel_db" >> src/.env
-            echo "DB_USERNAME=laravel_user" >> src/.env
-            echo "DB_PASSWORD=laravel_pass" >> src/.env
-            ls -l src/.env
-            cat src/.env
+            echo "DB_CONNECTION=mysql" >> .env
+            echo "DB_HOST=127.0.0.1" >> .env
+            echo "DB_PORT=3306" >> .env
+            echo "DB_DATABASE=laravel_db" >> .env
+            echo "DB_USERNAME=laravel_user" >> .env
+            echo "DB_PASSWORD=laravel_pass" >> .env
+            ls -l .env
+            cat .env
+
+      # マイグレーションとシーディングの実行
+      - run:
+          name: Run migrations and seeders
+          command: |
+            composer install
+            php artisan migrate --env=testing --seed  --force
 
       - run:
-          name: マイグレーションを実行
-          command: php artisan migrate --env=testing --seed  --force
+          name: Generate application key
+          command: php artisan key:generate
 
-      - run: mkdir -p test_results
 
       # テストの実行
       - run:
           name: Run PHPUnit tests
-          command: |
-            php artisan test --testsuite Feature
-
-      - store_test_results:
-          path: test_results
-
-      - store_artifacts:
-          path: test_results
-
-      - store_artifacts:
-          path: coverage
+          command: php artisan test --testsuite Feature
 
 workflows:
-  main:
+  version: 2
+  build:
     jobs:
-      - build_and_test
+      - build
