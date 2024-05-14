@@ -1,32 +1,14 @@
 version: 2.1
 
-services:
-  mysql:
-    image: mysql:8.0.26
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravel_db
-      MYSQL_USER: laravel_user
-      MYSQL_PASSWORD: laravel_pass
-    command: --default-authentication-plugin=mysql_native_password
-    ports:
-      - "3306:3306"  # ホストマシンからMySQLにアクセスできるようにポートをマッピング
-    volumes:
-      - ./docker/mysql/data:/var/lib/mysql
-      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
-    healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -proot"]
-      retries: 5
-      interval: 10s
-
 jobs:
-  build:
+  build_and_test:
     docker:
-      - image: php:8.1-fpm
-      - image: mysql:8.0.26
+      - image: cimg/php:8.1
+      - image: cimg/mysql:8.0
         environment:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_CONF: /etc/mysql/my.cnf:/etc/mysql/my.cnf
+            MYSQL_DATABASE: laravel_db
+            MYSQL_USER: laravel_user
+            MYSQL_PASSWORD: laravel_pass
         command: --default-authentication-plugin=mysql_native_password
 
     steps:
@@ -67,7 +49,7 @@ jobs:
           command: |
             cd src
             composer install
-            php artisan migrate:fresh --seed  --force
+            php artisan migrate --env=testing --seed  --force
 
       # テストの実行
       - run:
