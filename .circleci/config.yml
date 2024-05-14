@@ -14,10 +14,13 @@ jobs:
       - checkout:
           path: ~/project
 
-      - restore_cache:
-          keys:
-            - composer-v1-{{ checksum "composer.lock" }}
-            - composer-v1-
+      # PHP拡張機能のインストール
+      - run:
+          name: Install PHP extensions and dependencies
+          command: |
+            apt update && apt install -y default-mysql-client zlib1g-dev libzip-dev unzip libpng-dev libjpeg-dev
+            docker-php-ext-configure gd --with-jpeg
+            docker-php-ext-install pdo_mysql zip gd
 
       - run:
           name: composer依存関係をインストール
