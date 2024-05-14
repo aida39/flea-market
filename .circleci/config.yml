@@ -6,6 +6,7 @@ jobs:
     docker:
       - image: cimg/php:8.1
       - image: mysql:8.0.26
+        environment:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: laravel_db
           MYSQL_USER: laravel_user
