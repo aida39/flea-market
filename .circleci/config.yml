@@ -2,6 +2,7 @@ version: 2.1
 
 jobs:
   build:
+    working_directory: ~/project/src
     docker:
       - image: php:8.1-fpm
       - image: mysql:8.0.26
@@ -43,14 +44,12 @@ jobs:
       - run:
           name: Run migrations and seeders
           command: |
-            cd src
             composer install
             php artisan migrate:fresh --seed  --force
       # テストの実行
       - run:
           name: Run PHPUnit tests
           command: |
-            cd src
             php artisan test --testsuite Feature
 workflows:
   version: 2
