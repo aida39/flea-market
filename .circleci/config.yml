@@ -9,7 +9,7 @@ jobs:
 
       # Docker Compose のセットアップ
       - setup_remote_docker:
-          version: 20.10.7
+          version: edge
 
       # Docker Compose プロジェクトの構築と起動
       - run:
