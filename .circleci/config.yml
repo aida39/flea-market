@@ -4,47 +4,64 @@ jobs:
   build:
     docker:
       - image: php:8.1-fpm
-      - image: mysql:8.0.26
-        environment:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: laravel_db
-          MYSQL_USER: laravel_user
-          MYSQL_PASSWORD: laravel_pass
     steps:
       - checkout
-      - run:
-          command: |
-                cd src
-                composer install
-                npm ci
-                npm run dev
 
-# .envファイルの作成
+      # Docker Compose のセットアップ
+      - setup_remote_docker:
+          version: 20.10.7
+
+      # Docker Compose プロジェクトの構築と起動
       - run:
-          name: Create .env file
+          name: Docker Compose up
           command: |
-            echo "DB_CONNECTION=mysql" >> src/.env
-            echo "DB_HOST=mysql" >> src/.env
-            echo "DB_PORT=3306" >> src/.env
-            echo "DB_DATABASE=laravel_db" >> src/.env
-            echo "DB_USERNAME=laravel_user" >> src/.env
-            echo "DB_PASSWORD=laravel_pass" >> src/.env
-            ls -l src/.env
-            cat src/.env
-      # マイグレーションとシーディングの実行
+            docker-compose -f docker-compose.yml up -d --build
+
+      # 依存関係のインストール
       - run:
-          name: Run migrations and seeders
+          name: Install dependencies
           command: |
-            cd src
-            php artisan migrate:fresh --seed  --force
-      # テストの実行
+            docker-compose exec php composer install
+
+      # 環境変数ファイルのコピー
       - run:
-          name: Run PHPUnit tests
+          name: Copy .env
           command: |
-            cd src
-            php artisan test --testsuite Feature
+            cp .env.example .env
+
+      # .envファイルの設定更新
+      - run:
+          name: Update .env for testing
+          command: |
+            sed -i 's/DB_HOST=127.0.0.1/DB_HOST=mysql/' .env && \
+            sed -i 's/DB_DATABASE=laravel/DB_DATABASE=laravel_db/' .env && \
+            sed -i 's/DB_USERNAME=root/DB_USERNAME=laravel_user/' .env && \
+            sed -i 's/DB_PASSWORD=/DB_PASSWORD=laravel_pass/' .env
+
+      # アプリケーションキーの生成
+      - run:
+          name: Generate application key
+          command: |
+            docker-compose exec php php artisan key:generate
+
+      # データベースのセットアップ
+      - run:
+          name: Wait for MySQL
+          command: |
+            docker-compose exec php sh -c 'while ! mysqladmin ping -hmysql --silent; do sleep 1; done'
+      - run:
+          name: Run migrations
+          command: |
+            docker-compose exec php php artisan migrate --force
+
+      # PHPUnitテストの実行
+      - run:
+          name: Run tests
+          command: |
+            docker-compose exec php ./vendor/bin/phpunit
+
 workflows:
   version: 2
-  build:
+  build_and_test:
     jobs:
       - build
