@@ -7,14 +7,18 @@ jobs:
       - image: mysql:8.0.26
         environment:
           MYSQL_ROOT_PASSWORD: root
-
+          MYSQL_DATABASE: laravel_db
+          MYSQL_USER: laravel_user
+          MYSQL_PASSWORD: laravel_pass
     steps:
       - checkout
-      - run: sudo composer self-update --1
-      - run: composer install -n --prefer-dist
-      - run: npm ci
-      - run: npm run dev
-      
+      - run:
+          command: |
+                cd src
+                composer install
+                npm ci
+                npm run dev
+
 # .envファイルの作成
       - run:
           name: Create .env file
@@ -32,7 +36,6 @@ jobs:
           name: Run migrations and seeders
           command: |
             cd src
-            composer install
             php artisan migrate:fresh --seed  --force
       # テストの実行
       - run:
