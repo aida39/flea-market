@@ -10,11 +10,18 @@ jobs:
       # Docker Compose のセットアップ
       - setup_remote_docker:
           version: edge
-
+      
+      # Docker Compose がインストールされているか確認
+      - run:
+          name: Check Docker Compose version
+          command: |
+            docker-compose --version
       # Docker Compose プロジェクトの構築と起動
       - run:
           name: Docker Compose up
           command: |
+            cd src
+            pwd
             docker-compose -f docker-compose.yml up -d --build
 
       # 依存関係のインストール
