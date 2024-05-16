@@ -27,7 +27,6 @@ jobs:
       - run:
           name: Docker Compose up
           command: |
-            cd src
             pwd
             docker-compose -f docker-compose.yml up -d --build
 
