@@ -9,9 +9,7 @@ jobs:
           MYSQL_DATABASE: laravel_db
           MYSQL_HOST: 127.0.0.1
           MYSQL_ROOT_PASSWORD: root
-    environment:
-      - DB_HOST: 127.0.0.1
-      - DB_PASSWORD: root
+
     steps:
       - checkout
       - run:
@@ -28,7 +26,9 @@ jobs:
 
       - run:
           name: テストを実行
-          command: ./vendor/bin/phpunit
+          command: |
+            cd src
+            php artisan test --testsuite Feature
 
 workflows:
   version: 2
