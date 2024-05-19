@@ -8,7 +8,7 @@
     @endif
     <div class="tab">
         <ul class="tab-menu">
-            <li class="tab-menu__item active">おすすめ</li>
+            <li class="tab-menu__item active">おすすめリスト</li>
             <li class="tab-menu__item">マイリスト</li>
         </ul>
         <div class="tab-content">
