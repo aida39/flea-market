@@ -8,9 +8,10 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: laravel_db
           MYSQL_HOST: 127.0.0.1
-          MYSQL_ROOT_PASSWORD: ''
+          MYSQL_ROOT_PASSWORD: root
     environment:
       - DB_HOST: 127.0.0.1
+      - DB_PASSWORD: root
     steps:
       - checkout
       - run:
