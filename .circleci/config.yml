@@ -33,11 +33,13 @@ jobs:
 
   deploy:
     machine:
-      image: circleci/classic:edge
+      image: ubuntu-2004:202201-01
     steps:
         - checkout
-        - add_ssh_keys:
-        - run: ssh ${USER_NAME}@${HOST_NAME} 'cd http://13.231.156.139/ && git pull'
+        - add_ssh_keys: {}
+        - run:
+            name: サーバーに接続してデプロイ
+            command: ssh ${USER_NAME}@${HOST_NAME} 'cd http://13.231.156.139/ && git pull'
 
 workflows:
   version: 2
