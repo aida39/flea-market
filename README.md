@@ -11,8 +11,8 @@ coachtechブランドのアイテムを出品するため
 - 管理者用ページ http://localhost/admin/index
 
 ### 本番環境
-- ユーザー用ページ http://43.207.115.202/：：：未作成
-- 管理者用ページ http://43.207.115.202/admin/index：：：未作成
+- ユーザー用ページ http://13.113.217.56
+- 管理者用ページ http://13.113.217.56/admin/index
 
 ### 動作確認用のアカウント
 確認用のアカウントを用意していますので、下記のアカウントを使用してログインしてください。  
@@ -57,7 +57,7 @@ coachtechブランドのアイテムを出品するため
  4. .env.exampleファイルから.envを作成し、環境変数を変更  
 DB_CONNECTIONからDB_PASSWORD、MAIL_MAILERからMAIL_FROM_NAMEの項目を修正  
 STRIPE_KEYとSTRIPE_SECRETの項目を追加  
-IMAGE_DIRECTORYの項目を以下のように追加  
+ストレージ保存先の設定として、以下の項目を追加  
 DEV_IMAGE_DIRECTORY=development/image  
 PROD_IMAGE_DIRECTORY=production/image  
  5. ```php artisan key:generate```
@@ -66,13 +66,16 @@ PROD_IMAGE_DIRECTORY=production/image
  7. ```php artisan storage:link```
 
 ## 補足事項
-### 開発環境の構築について
+### 開発環境の構築
+出品した商品の画像の保存先にAmazonS3を設定しています。  
+使用にはAWSでの設定と.envファイルの編集が必要です。  
+
 仮想SMTPサーバーとしてMailtrapの使用を想定しています。  
 Mailtrapを使用する場合はサービスの登録と.envファイルの編集が必要です。
 
 決済機能としてstripeを設定しています。  
 使用にはサービスの登録と.envファイルの記述が必要です。  
 
-### テストの実行について
+### テストの実行
 ```php artisan test --testsuite Feature```でPHPUnitによるテストが可能です。  
 実行にはテスト用データベースの設定が必要です。
