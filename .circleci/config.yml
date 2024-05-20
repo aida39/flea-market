@@ -39,7 +39,7 @@ jobs:
         - add_ssh_keys: {}
         - run:
             name: サーバーに接続してデプロイ
-            command: ssh ${USER_NAME}@${HOST_NAME} 'cd /var/www/flea-market && git pull --force'
+            command: ssh ${USER_NAME}@${HOST_NAME} 'cd /var/www/flea-market && git pull'
 
 workflows:
   version: 2
